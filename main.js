@@ -728,13 +728,13 @@ _element.section = {
           i++
   
           var position = 'pos'+ i
-          dat[position] = e.screenX +' X '+ e.screenY;
+          _dat[position] = e.screenX +' X '+ e.screenY;
   
           var x = document.getElementsByTagName('input')
           if(x){
           for(var s = 0; s<x.length;s++){
             var name = x[s].name;
-            dat[name] = x[s].value
+            _dat[name] = x[s].value
             console.log(dat)
           }
         }
