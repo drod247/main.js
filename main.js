@@ -1,6 +1,9 @@
 const _dat = {};
 const vsdg = {};
-const _element = {}
+const _element = {};
+const email = {};
+
+
 console.log('Developed by | David Rodriguez @vsdg_group | https://vsdg.net');
 
 
@@ -288,7 +291,7 @@ _element.li = function(id,text,parent,next,){
    $(this).parent().slideUp(function(){
 $(this).remove()
 
-sections[next]()
+window[next]()
 
    })
   }
@@ -408,7 +411,7 @@ setInterval(function() {
   }
   if(tagname == 'html'){
     document.getElementsByTagName('html')[0].addEventListener(trigger,function(){
-      window[next]()
+      _element[next]()
     })
 
   }
@@ -527,7 +530,7 @@ _element.section = {
       
                 /* Close the list of autocompleted values: */
                 closeDropDownList();
-                sections[next]()
+                _element[next]()
               });
       
               autocompleteItemsElement.appendChild(itemElement);
@@ -627,7 +630,7 @@ _element.section = {
       
       _address(document.getElementById("address"), (data) => {
         console.log(data)
-       ajax('address')
+       _element.action.ajax('address')
       }, {
           placeholder: "Enter address"
       });
@@ -751,7 +754,10 @@ _element.section = {
             document.getElementsByTagName('body')[0].style.backgroundImage = 'url('+images[i]+')'
           }, i * 3000);
         }
-      } 
+      },
+  next: function(id,parent,classname,text){
+    _element.div(id,parent,classname,text)
+  }
 }
 
 // test
