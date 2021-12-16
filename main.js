@@ -341,7 +341,7 @@ $('#'+ _dat._id).children().slideUp(function(){
 
 
 }, 
-  _ajax: function(subject){
+  ajax: function(subject){
   if(subject){
     _dat.subj = subject
 
@@ -360,7 +360,7 @@ $('#'+ _dat._id).children().slideUp(function(){
 
 },
   _exit: function(_id){
-  _element.action._ajax("landing")
+  _element.action.ajax("landing")
   var count = 0;
 setInterval(function() {
   if (count > 60) { // We check if the timer is in seconds or mins
@@ -388,25 +388,25 @@ setInterval(function() {
 
   } 
   //if(!event.target.getElementsByTagName('select')[0].value == 'type'){
-    _element.action._ajax('Exit')
+    _element.action.ajax('Exit')
   //}
   }
 })
 },
- _listener: function(id,tag,trigger,next){
+ listener: function(id,tagname,trigger,next){
   if(id){
     document.getElementById(id).addEventListener(trigger,function(){
 
       window[next]()
     })
   }
-  if(tag == 'body'){
+  if(tagname == 'body'){
     var c = document.getElementsByTagName('body')[0]
     c.addEventListener(trigger,function(){
       window[next]()
     })
   }
-  if(tag == 'html'){
+  if(tagname == 'html'){
     document.getElementsByTagName('html')[0].addEventListener(trigger,function(){
       window[next]()
     })
@@ -423,8 +423,8 @@ _element.section = {
   address: function(parent,next){
       
   
-    _div('address_pt',parent)
-    _ul('address','address_pt')
+    _element.div('address_pt',parent)
+    _element.ul('address','address_pt')
     document.getElementById('address').setAttribute('style','grid-template-columns: minmax(0, 1fr);')
     
     function _address(containerElement, callback, options) {
@@ -522,7 +522,7 @@ _element.section = {
               /* Set the value for the autocomplete text field and notify: */
               itemElement.addEventListener("click", function(e) {
                 inputElement.value = currentItems[index].properties.formatted.split('United')[0];
-                dat.address = currentItems[index].properties.formatted.split('United')[0];
+                _dat.address = currentItems[index].properties.formatted.split('United')[0];
                 callback(currentItems[index]);
       
                 /* Close the list of autocompleted values: */
@@ -627,16 +627,16 @@ _element.section = {
       
       _address(document.getElementById("address"), (data) => {
         console.log(data)
-       _ajax('address')
+       ajax('address')
       }, {
           placeholder: "Enter address"
       });
   
       },
   marquee: function(parent){
-  div.parent =  parent;
+    _dat.parent =  parent;
   
-  
+        var images = [];
         var folder = "/images/logos/";
   
   $.ajax({
@@ -654,12 +654,12 @@ _element.section = {
   })
   
   function _prep(){
-    _div('marquee',div.parent,'marquee')
-    _ul('marquee-content','marquee','marquee-content')
+    _element.div('marquee',_dat.parent,'marquee')
+    _element.ul('marquee-content','marquee','marquee-content')
     var i;
     for(var i =0;i<images.length;i++){
-      _li('image' + i,'','marquee-content')
-    _image('',images[i],'image' + i)
+     _element.li('image' + i,'','marquee-content')
+    _element.image('',images[i],'image' + i)
     }
     slideit()
       }
@@ -687,7 +687,7 @@ _element.section = {
       
   var url = '/progressBar.js'
   $.getScript( url, function() {
-    _div('section',parent)
+    _element.div('section',parent)
   
   }).done(function(){
     const p = {}
@@ -735,7 +735,7 @@ _element.section = {
           for(var s = 0; s<x.length;s++){
             var name = x[s].name;
             _dat[name] = x[s].value
-            console.log(dat)
+            console.log(_dat)
           }
         }
         })
