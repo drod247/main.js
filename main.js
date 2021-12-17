@@ -2,6 +2,7 @@ const _dat = {};
 const vsdg = {};
 const _element = {};
 const email = {};
+const functions = {};
 
 
 console.log('Developed by | David Rodriguez @vsdg_group | https://vsdg.net');
@@ -426,9 +427,9 @@ _element.section = {
   address: function(parent,next){
       
   
-    _element.div('address_pt',parent)
-    _element.ul('address','address_pt')
-    document.getElementById('address').setAttribute('style','grid-template-columns: minmax(0, 1fr);')
+    _element.div('address',parent)
+    _element.ul('street','address')
+    document.getElementById('street').setAttribute('style','grid-template-columns: minmax(0, 1fr);')
     
     function _address(containerElement, callback, options) {
         // create input element
@@ -530,7 +531,7 @@ _element.section = {
       
                 /* Close the list of autocompleted values: */
                 closeDropDownList();
-                _element[next]()
+                functions[next]()
               });
       
               autocompleteItemsElement.appendChild(itemElement);
@@ -636,6 +637,26 @@ _element.section = {
       });
   
       },
+
+      images: function(folder){
+  
+        var image = [];
+        
+  
+  $.ajax({
+      url : folder,
+      success: function (data) {
+          $(data).find("a").attr("href", function (i, val) {
+              if( val.match(/\.(jpe?g|png|gif)$/) ) { 
+  
+                  image.push(folder + val);
+              } 
+          });
+      }
+  })
+
+      },
+
   marquee: function(parent){
     _dat.parent =  parent;
   
