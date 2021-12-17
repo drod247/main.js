@@ -3,6 +3,7 @@ const vsdg = {};
 const _element = {};
 const email = {};
 const functions = {};
+var image = [];
 
 
 console.log('Developed by | David Rodriguez @vsdg_group | https://vsdg.net');
@@ -640,7 +641,6 @@ _element.section = {
 
       images: function(folder){
   
-        var image = [];
         
   
   $.ajax({
