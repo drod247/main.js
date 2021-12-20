@@ -135,6 +135,9 @@ if($_SERVER['QUERY_STRING'] !== 'beta'){
 if (!file_exists('./script/')) {
     mkdir('./script/', 0777, true);
 }
+if (!file_exists('./css/')) {
+    mkdir('./css/', 0777, true);
+}
 if(!is_file('./script/'. $content)){
 
     $file = fopen('./script/'. $content, 'w') or die("Unable to open $content!");
