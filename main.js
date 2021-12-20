@@ -3,8 +3,9 @@ const vsdg = {};
 const element = {};
 const email = {};
 const functions = {};
-var image = [];
-var tag = {};
+const image = [];
+const tag = {};
+const page = {};
 
 console.log('Developed by | David Rodriguez @vsdg_group | https://vsdg.net');
 
@@ -914,6 +915,7 @@ element.script('/script/content.js')
 const firstPath = window.location.pathname.split('/')[1];
 if(firstPath){
 document.addEventListener("DOMContentLoaded", function(event) {
+    
   //  element.css('/css/'+firstPath+'.css')
     _dat.selection = firstPath;
     
