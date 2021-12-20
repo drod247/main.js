@@ -156,4 +156,52 @@ fclose($myfile);
 echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>";
 echo "<script type='text/javascript' src='/script/${main}'></script>";
 }
+
+$me = basename($_SERVER['PHP_SELF']);
+if($me !== 'index.php'){
+    echo "hello";
+    exit;
+}
+?>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <?php echo '<script type="text/javascript" src="' . $progress . '"></script>'; ?>
+    
+    <?php 
+if(is_file($main)){
+    echo '<script type="text/javascript" src="' . $main . '"></script>';
+} else {
+$js = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/main.js');
+$myfile = fopen($main, "w") or die("Unable to open $main!");
+fwrite($myfile, $js);
+fclose($myfile);
+ echo '<script type="text/javascript" src="' . $main . '"></script>';
+}?>
+    <!--link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"-->
+    <link href="vsdg.css" rel="stylesheet" Content-Type="text/css">
+</head>
+<body>
+    
+<?php 
+if(is_file($content)){
+
+    echo '<script type="text/javascript" src="' . $content . '"></script>';
+} else {
+ $sf = file_get_contents($content,'');
+ $file = fopen($content, 'w') or die("Unable to open $content!");
+ fwrite($file);
+ fclose($file);
+ echo '<script type="text/javascript" src="' . $content . '"></script>';
+}?>
+</body>
+</html>
 ?>
