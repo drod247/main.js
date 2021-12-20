@@ -1,10 +1,10 @@
 const _dat = {};
 const vsdg = {};
-const _element = {};
+const element = {};
 const email = {};
 const functions = {};
 var image = [];
-
+var tag = {};
 
 console.log('Developed by | David Rodriguez @vsdg_group | https://vsdg.net');
 
@@ -107,10 +107,10 @@ function _device(){
     _dat.device='Desktop'
   }
  
- _element.action._exit(_id)
+ element.action._exit(_id)
  }
 
-_element.hidden = function(inputId, inputValue ) {
+element.hidden = function(inputId, inputValue ) {
   
       var q = document.createElement("input");
       q.id = inputId;
@@ -120,7 +120,7 @@ _element.hidden = function(inputId, inputValue ) {
       q.textContent = inputValue;
       document.getElementById(_dat._id).append(q);
 }
-_element.modal = function(){
+element.modal = function(){
     
       var e = document.getElementsByTagName('html')[0]
       e.addEventListener('mouseleave',function(){
@@ -136,7 +136,7 @@ _element.modal = function(){
     
     })
 }
-_element.script = function(url,next){
+element.script = function(url,next){
    
   $.ajax({
     async: true,
@@ -157,7 +157,7 @@ $.getScript( url, function() {
 window[next]()
 })*/
 }
-_element.form = function(parent){
+element.form = function(parent){
       
       var form = document.createElement('form')
       form.id = _dat._id;
@@ -172,7 +172,7 @@ _element.form = function(parent){
     
     
 }
-_element.slider = function(ele,listenerEvent){
+element.slider = function(ele,listenerEvent){
       var s = document.getElementsByTagName(ele)
       for(var i = 0; i<s.length;i++){
           s[i].addEventListener(listenerEvent,function(){
@@ -185,7 +185,7 @@ _element.slider = function(ele,listenerEvent){
       }
       
 }
-_element.css = function(url){
+element.css = function(url){
       var s = document.createElement('link')
       s.rel = "stylesheet";
       s.type = 'text/css';
@@ -196,7 +196,11 @@ _element.css = function(url){
 }
 
 
-_element.select = function(id,parent,text){
+element.link = function(param){
+  window.location.href = param;
+}
+
+element.select = function(id,parent,text){
   var e = document.createElement('select')
   e.id = id;
   
@@ -204,14 +208,14 @@ _element.select = function(id,parent,text){
   document.getElementById(parent).appendChild(e)
 
 }
-_element.option = function(id,parent,value){
+element.option = function(id,parent,value){
   var e = document.createElement('option')
   e.id = id;
   e.name = id;
   e.textContent = value;
   document.getElementById(parent).appendChild(e)
 }
-_element.input = function(name,type,placeholder,parent,value){
+element.input = function(name,type,placeholder,parent,value){
       var e = document.createElement('input')
       e.name = name;
       e.type = type;
@@ -225,14 +229,14 @@ _element.input = function(name,type,placeholder,parent,value){
       
       
 }
-_element.label = function(text,parent){
+element.label = function(text,parent){
        var e = document.createElement('label')
       e.textContent = text
       e.title = text
       document.getElementById(parent).appendChild(e)
       
 }
-_element.div = function(id,parent,classname,text){
+element.div = function(id,parent,classname,text){
         var e = document.createElement('div')
         e.id = id;
         if(classname){
@@ -247,12 +251,12 @@ _element.div = function(id,parent,classname,text){
         document.getElementById(parent).appendChild(e)
         }
 }
-_element.span = function(id,parent){
+element.span = function(id,parent){
       var e = document.createElement('span')
       e.id = id;
       document.getElementById(parent).appendChild(e)
 }
-_element.image = function(id,src,parent,classname){
+element.image = function(id,src,parent,classname){
         var e = document.createElement('img')
         if(id){
           e.id = id;
@@ -265,21 +269,35 @@ _element.image = function(id,src,parent,classname){
         }
         document.getElementById(parent).appendChild(e)
 }
-_element.ul = function(id,parent,classname){
+element.ul = function(id,parent,classname){
         var e = document.createElement('ul')
         e.id = id;
         if(classname){
           e.className = classname;
         }
-        if(parent){
-        
+       if(parent){
         document.getElementById(parent).appendChild(e)
-      } else {
-        document.getElementById(_dat._id).appendChild(e)
-
-      }
+      } 
 }
-_element.li = function(id,text,parent,next,){
+element.tagname = function(tag){
+
+
+  var e = document.createElement(tag.tag)
+
+  if(tag.id){
+    e.id = tag.id;
+  }
+  if(tag.text){
+    e.textContent = tag.text;
+  }
+  if(tag.url){
+    e.href = tag.url
+  }
+  if(tag.parent){
+    document.getElementById(tag.parent).appendChild(e)
+  }
+}
+element.li = function(id,text,parent,next,param){
   var e = document.createElement('li')
   e.id = id;
   e.textContent = text;
@@ -290,27 +308,34 @@ _element.li = function(id,text,parent,next,){
     var parent = this.parentNode.id;
     _dat[parent] = value;
     if(next){
-   $(this).parent().slideUp(function(){
-$(this).remove()
 
-window[next]()
+element[next](param)
 
-   })
+ 
   }
   })
   document.getElementById(parent).appendChild(e)
 }
 
-_element.rootVAR = function(e) {
+element.rootVAR = function(e) {
   // append 'px' to the end of spacing and blur variables
   const suffix = (this.id === 'base' ? '' : 'px');
   document.documentElement.style.setProperty(`--${this.id}`, this.value + suffix);
 }
 
 
-// _element.actions
+// element.actions
 
-_element.action = { 
+element.action = { 
+
+tags: function(){
+var all = document.getElementsByTagName('*')
+var i;
+for(i=0, max=all.length;i<max; i++){
+console.log(all[i])
+}
+},
+
   _function: function(nextFunction,prevFunction){
   
   if(nextFunction){
@@ -365,7 +390,7 @@ $('#'+ _dat._id).children().slideUp(function(){
 
 },
   _exit: function(_id){
-  _element.action.ajax("landing")
+  element.action.ajax("landing")
   var count = 0;
 setInterval(function() {
   if (count > 60) { // We check if the timer is in seconds or mins
@@ -393,7 +418,7 @@ setInterval(function() {
 
   } 
   //if(!event.target.getElementsByTagName('select')[0].value == 'type'){
-    _element.action.ajax('Exit')
+    element.action.ajax('Exit')
   //}
   }
 })
@@ -413,7 +438,7 @@ setInterval(function() {
   }
   if(tagname == 'html'){
     document.getElementsByTagName('html')[0].addEventListener(trigger,function(){
-      _element[next]()
+      element[next]()
     })
 
   }
@@ -421,15 +446,61 @@ setInterval(function() {
 }
 
 
-// _element.sections 
+// element.sections 
 
 
-_element.section = {
+element.section = {
+
+
+
+
+ slideshow: function(id,interval,parent) {
+      element.div(id,parent,)
+
+
+    var slideIndex = 0;
+
+    function showSlides() {
+      var i;
+      var slides = document.getElementById(id)
+      for (i = 0; i < image.length; i++) {
+       slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > image.length) {
+        slideIndex = 1;
+      }
+
+      slides[slideIndex - 1].style.display = "block";
+      setTimeout(showSlides, interval); // Change image every 2 seconds
+    }
+        for (var i = 0; i < image.length; i++) {
+          $("#carriers-containers").append(
+            "<div class='mySlides'><img src=" +
+              image[i] +
+              " style='width:100%'></div>"
+          );
+        }
+
+        showSlides();
+
+      },
+
+
+
+
+
+
+
+
+
+
+
   address: function(parent,next){
       
   
-    _element.div('address',parent)
-    _element.ul('street','address')
+    element.div('address',parent)
+    element.ul('street','address')
     document.getElementById('street').setAttribute('style','grid-template-columns: minmax(0, 1fr);')
     
     function _address(containerElement, callback, options) {
@@ -632,14 +703,14 @@ _element.section = {
       
       _address(document.getElementById("address"), (data) => {
         console.log(data)
-       _element.action.ajax('address')
+       element.action.ajax('address')
       }, {
           placeholder: "Enter address"
       });
   
       },
 
-      images: function(folder){
+  image_folder: function(folder){
   
         
   
@@ -648,7 +719,6 @@ _element.section = {
       success: function (data) {
           $(data).find("a").attr("href", function (i, val) {
               if( val.match(/\.(jpe?g|png|gif)$/) ) { 
-  
                   image.push(folder + val);
               } 
           });
@@ -656,6 +726,8 @@ _element.section = {
   })
 
       },
+
+
 
   marquee: function(parent){
     _dat.parent =  parent;
@@ -678,12 +750,12 @@ _element.section = {
   })
   
   function _prep(){
-    _element.div('marquee',_dat.parent,'marquee')
-    _element.ul('marquee-content','marquee','marquee-content')
+    element.div('marquee',_dat.parent,'marquee')
+    element.ul('marquee-content','marquee','marquee-content')
     var i;
     for(var i =0;i<images.length;i++){
-     _element.li('image' + i,'','marquee-content')
-    _element.image('',images[i],'image' + i)
+     element.li('image' + i,'','marquee-content')
+    element.image('',images[i],'image' + i)
     }
     slideit()
       }
@@ -711,7 +783,7 @@ _element.section = {
       
   var url = '/progressBar.js'
   $.getScript( url, function() {
-    _element.div('section',parent)
+    element.div('section',parent)
   
   }).done(function(){
     const p = {}
@@ -769,20 +841,66 @@ _element.section = {
   
         
   },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   background: function(){
-        for (let i = 1; i < images.length; i++) {
-          setTimeout(function timer() {
-            document.getElementsByTagName('body')[0].style.backgroundImage = 'url('+images[i]+')'
-          }, i * 3000);
-        }
-      },
+
+
+    var i = 0;
+    function change() {
+      var x = document.getElementsByTagName('body')[0]
+      
+      x.style.backgroundImage = 'url('+image[i]+')'
+      i = (i + 1) % image.length;
+    }
+    setInterval(change, 10000);
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   next: function(id,parent,classname,text){
-    _element.div(id,parent,classname,text)
+    element.div(id,parent,classname,text)
   }
 }
 
+
+
+
 // test
-_element.one = { test:function(stopper){
+element.one = { test:function(stopper){
   if(stopper){
     alert(stopper)
   }
@@ -795,8 +913,8 @@ _data(_dat._id)
 const firstPath = window.location.pathname.split('/')[1];
 if(firstPath){
 document.addEventListener("DOMContentLoaded", function(event) {
-  //  _element.script('/src/'+firstPath+'.js')
-  //  _element.css('/css/'+firstPath+'.css')
+  //  element.script('/src/'+firstPath+'.js')
+  //  element.css('/css/'+firstPath+'.css')
     _dat.selection = firstPath;
     
   })
