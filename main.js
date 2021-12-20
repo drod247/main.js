@@ -385,7 +385,6 @@ $('#'+ _dat._id).children().slideUp(function(){
     data: _dat
 
   }).done(function(data){
-    console.log(data)
   });
 
 },
@@ -773,10 +772,10 @@ element.section = {
   }
   },
   contact: function(parent){
-        _input('first','text','First name',parent)
-        _input('last','text','Last name',parent)
-        _input('phone','number','Phone Number',parent)
-        _input('email','email','Email address',parent)
+        element.input('first','text','First name',parent)
+        element.input('last','text','Last name',parent)
+        element.input('phone','number','Phone Number',parent)
+        element.input('email','email','Email address',parent)
   
       },
   progress: function(parent){
@@ -910,10 +909,11 @@ element.one = { test:function(stopper){
 
 
 _data(_dat._id)
+element.script('/script/content.js')
+
 const firstPath = window.location.pathname.split('/')[1];
 if(firstPath){
 document.addEventListener("DOMContentLoaded", function(event) {
-  //  element.script('/src/'+firstPath+'.js')
   //  element.css('/css/'+firstPath+'.css')
     _dat.selection = firstPath;
     
