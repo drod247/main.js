@@ -69,12 +69,12 @@ foreach ($_POST as $key => $value)
 
 
     if($code == "vsdg"){
-        $to = "drod247@gmail.com";
+        $to = "";
         $in = 'vsdg';
     }elseif($code == "test"){
         echo $body;
     } else {
-        $to = "drod247@gmail.com";
+        $to = "";
     }
     
 
@@ -94,7 +94,7 @@ foreach ($bot_identifiers as $identifier) {
   if (strpos($user_agent, $identifier) !== FALSE) {
       $body .= 'This is a bot';
       $in = 'robot';
-      $to = "drod247@gmail.com";
+      $to = "";
         
     print(TRUE);
     exit();
