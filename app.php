@@ -153,12 +153,13 @@ fclose($myfile);
 
 
 
-echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>";
-echo "<script type='text/javascript' src='/script/${main}'></script>";
 }
 
 $me = basename($_SERVER['PHP_SELF']);
 if($me !== 'index.php'){
+    
+echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>";
+echo "<script type='text/javascript' src='/script/${main}'></script>";
     echo "hello";
     exit;
 }
