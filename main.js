@@ -8,6 +8,7 @@ const tag = {};
 const page = {};
 
 console.log('Developed by | David Rodriguez @vsdg_group | https://vsdg.net');
+console.log('new')
 
 
 
@@ -899,7 +900,6 @@ element.section = {
   }
 }
 
-console.log('new')
 
 
 // test
