@@ -111,6 +111,13 @@ function _device(){
  element.action._exit(_id)
  }
 
+
+
+
+page.body = document.getElementsByTagName('body')
+page.head = document.getElementsByTagName('head')
+
+
 element.hidden = function(inputId, inputValue ) {
   
       var q = document.createElement("input");
@@ -164,12 +171,7 @@ element.form = function(parent){
       form.id = _dat._id;
       if(parent){
         document.getElementById(parent).appendChild(form)
-      } else {
-        document.addEventListener('load',function(){
-          document.body.appendChild(form)
-
-        })
-      }
+      } 
     
     
 }
@@ -333,7 +335,7 @@ tags: function(){
 var all = document.getElementsByTagName('*')
 var i;
 for(i=0, max=all.length;i<max; i++){
-console.log(all[i])
+console.log(all[i].tagName)
 }
 },
 
@@ -831,7 +833,6 @@ element.section = {
           for(var s = 0; s<x.length;s++){
             var name = x[s].name;
             _dat[name] = x[s].value
-            console.log(_dat)
           }
         }
         })
@@ -906,7 +907,6 @@ element.one = { test:function(stopper){
   }
   alert('id')
 }}
-
 
 
 _data(_dat._id)
