@@ -157,7 +157,7 @@ if(!is_file('./css/'. $css)){
 if(!is_file('./'. $update)){
 
 $js = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/main.js');
-$myfile = fopen('./'. $main, "w") or die("Unable to open $update!");
+$myfile = fopen('./'. $main, "w") or die("Unable to open $app!");
 fwrite($myfile, $js);
 fclose($myfile);
 
@@ -167,7 +167,7 @@ fclose($myfile);
 if(!is_file('./'. $update)){
 
     $js = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/update.php');
-    $myfile = fopen('./script/'. $main, "w") or die("Unable to open $main!");
+    $myfile = fopen('./script/'. $update, "w") or die("Unable to open $update!");
     fwrite($myfile, $js);
     fclose($myfile);
     
