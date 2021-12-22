@@ -157,7 +157,9 @@ element.script = function(url,next){
       window[next]()
     }
 
-  }); 
+  }).fail(function() { 
+    alert('no')
+}); 
 /*
 $.getScript( url, function() {
 
@@ -897,7 +899,7 @@ element.section = {
   }
 }
 
-
+console.log('new')
 
 
 // test
