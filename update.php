@@ -45,6 +45,6 @@ if ( file_exists( './css/' . $css ) ) {
                          
 }
                           
-
+header('Location: '.$_dir_);
 
     ?>
