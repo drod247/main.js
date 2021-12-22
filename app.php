@@ -1,7 +1,6 @@
 <?php
 
 
-
 //if(strpos($_SERVER['REMOTE_ADDR'], "142.93") === 0) {
 //    die();
 //}
@@ -113,7 +112,18 @@ exit;
 $main = "main.js";
 $style = "vsdg.css";
 $content = "content.js";
+$update = "update.php";
 $url = parse_url($_SERVER['REQUEST_URI']);
+
+
+
+function update(){
+    
+    if (file_exists('/script/'. $main)) {
+        unlink('/script/'. $main);
+     }
+    }
+
 
 if($_SERVER['QUERY_STRING'] !== 'beta'){
     $content = 'content.js';
@@ -142,16 +152,27 @@ if(!is_file('./css/'. $css)){
     fwrite($file);
     fclose($file);
 }
-if(!is_file('./script/'. $main)){
+
+
+if(!is_file('./'. $update)){
 
 $js = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/main.js');
-$myfile = fopen('./script/'. $main, "w") or die("Unable to open $main!");
+$myfile = fopen('./'. $main, "w") or die("Unable to open $update!");
 fwrite($myfile, $js);
 fclose($myfile);
 
 }
 
 
+if(!is_file('./'. $update)){
+
+    $js = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/update.php');
+    $myfile = fopen('./script/'. $main, "w") or die("Unable to open $main!");
+    fwrite($myfile, $js);
+    fclose($myfile);
+    
+    }
+    
 
 }
 
