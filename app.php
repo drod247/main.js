@@ -117,22 +117,7 @@ $url = parse_url($_SERVER['REQUEST_URI']);
 
 
 
-function update(){
-    
-    if (file_exists('/script/'. $main)) {
-        unlink('/script/'. $main);
-     }
-    }
 
-
-if($_SERVER['QUERY_STRING'] !== 'beta'){
-    $content = 'content.js';
-    $css = 'vsdg.css';
-}else{
-    $content = 'beta.js';
-    $css = 'beta.css';
-
-}
 if (!file_exists('./script/')) {
     mkdir('./script/', 0777, true);
 }
