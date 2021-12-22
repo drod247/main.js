@@ -1,6 +1,7 @@
 
 <?php
     $_dir_ = $_SERVER['DOCUMENT_ROOT'];
+    $me = basename($_SERVER['PHP_SELF']);
 
     $app = 'app.php';
     $main = 'main.js';
@@ -56,7 +57,7 @@ if ( file_exists( './' . $update ) ) {
                 fclose($myfile);
                          
 }
-header('Location: '.$_dir_);
+header('Location: '.$me);
          
 
     ?>
