@@ -59,4 +59,4 @@ if ( file_exists( './' . $update ) ) {
  $url = $_SERVER['SERVER_NAME'];
 
     ?>
-<meta http-equiv="refresh" content="3;url="<?php echo $url?>>
+<meta http-equiv="refresh" content="3;url=" ${url}>
