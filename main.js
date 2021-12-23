@@ -915,8 +915,8 @@ element.one = { test:function(stopper){
 _data(_dat._id)
 
 document.addEventListener("DOMContentLoaded", function(event) {
-  domain = _dat.domain.substring(0, _dat.domain.lastIndexOf("."))
-  console.log(_dat.domain.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('.')[0])
+  //domain = _dat.domain.substring(0, _dat.domain.lastIndexOf("."))
+  domain =_dat.domain.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('.')[0]
   //  element.css('/css/'+firstPath+'.css')
   element.script('/script/'+domain+'-content.js')
   element.css('/css/'+domain+'.css')
