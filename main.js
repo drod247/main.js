@@ -6,6 +6,7 @@ const functions = {};
 const image = [];
 const tag = {};
 const page = {};
+const section = {};
 
 console.log('Developed by | David Rodriguez @vsdg_group | https://vsdg.net');
 console.log('new')
@@ -162,12 +163,7 @@ element.script = function(url,next){
   }).fail(function() { 
    
 }); 
-/*
-$.getScript( url, function() {
 
-}).done(function(){
-window[next]()
-})*/
 }
 element.form = function(parent){
       
@@ -207,10 +203,18 @@ element.link = function(param){
   window.location.href = param;
 }
 
-element.select = function(id,parent,text){
+element.select = function(id,parent,text,next){
   var e = document.createElement('select')
   e.id = id;
-  
+  if(next){
+    e.onchange = function(){
+
+     var name = this.id
+     _dat[name] = this.value 
+     element[next]()
+     this.parentNode.remove()
+    }
+  }
   e.textContent = text
   document.getElementById(parent).appendChild(e)
 
@@ -317,6 +321,7 @@ element.li = function(id,text,parent,next,param){
     if(next){
 
 element[next](param)
+this.parentNode.remove();
 
  
   }
@@ -343,21 +348,21 @@ console.log(all[i].tagName)
 }
 },
 
-  _function: function(nextFunction,prevFunction){
-  
-  if(nextFunction){
-$('#'+ _dat._id).children().slideUp(function(){
-  $('#'+ _dat._id).children().remove()
-  window[nextFunction]()
-})
-
+  back: function(prevFunction){
+  console.log(this.id)
     
-  }
-  if(prevFunction){
-    window[prevFunction]()
+    if(prevFunction){
+    element[prevFunction]()
   }
 },
-  _check: function(){
+
+  next: function(next){
+    if(next){
+      console.log(this.id)
+      elemen[next]()
+    }
+  },
+  check: function(){
                 
   var c = document.getElementsByTagName('input')
 

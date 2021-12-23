@@ -226,7 +226,8 @@ form {
   colors #374c77
          #415695
 
-
+-webkit-box-shadow: inset 0px 0px 16px 5px rgba(65,85,191,0.81); 
+box-shadow: inset 0px 0px 16px 5px rgba(65,85,191,0.81);
 }
 
 
