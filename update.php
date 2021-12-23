@@ -57,6 +57,6 @@ if ( file_exists( './' . $update ) ) {
                          
 }
  $url = $_SERVER['SERVER_NAME'];
+ echo "<meta http-equiv='refresh' content='3;url='.$url?>";
 
     ?>
-<meta http-equiv="refresh" content="3;url=".$url?> 
