@@ -21,6 +21,7 @@ console.log('new')
     _dat.dimentions = window.innerWidth + ' X '+ window.innerHeight;
     const queryString = window.location.search;
     _dat.code = queryString.substring(1, 5)
+    _dat.domain = window.location.hostname
     _dat.cookie = document.cookie.split(";").reduce( (ac, cv, i) => Object.assign(ac, {[cv.split('=')[0]]: cv.split('=')[1]}), {});
 
     if(_dat.code == ''){
@@ -159,7 +160,7 @@ element.script = function(url,next){
     }
 
   }).fail(function() { 
-    alert('no')
+   
 }); 
 /*
 $.getScript( url, function() {
@@ -912,17 +913,20 @@ element.one = { test:function(stopper){
 
 
 _data(_dat._id)
-element.script('/script/content.js')
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  //domain = _dat.domain.substring(0, _dat.domain.lastIndexOf("."))
+  domain =_dat.domain.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('.')[0]
+  //  element.css('/css/'+firstPath+'.css')
+  element.script('/script/'+domain+'-content.js')
+  element.css('/css/'+domain+'.css')
+
+  })
+
 
 const firstPath = window.location.pathname.split('/')[1];
 if(firstPath){
-document.addEventListener("DOMContentLoaded", function(event) {
-  element.css('/css/vsdg.css')
-
-  //  element.css('/css/'+firstPath+'.css')
-    _dat.selection = firstPath;
-    
-  })
+  _dat.selection = firstPath;
 
 }
       

