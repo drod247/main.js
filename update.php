@@ -56,7 +56,7 @@ if ( file_exists( './' . $update ) ) {
                 fclose($myfile);
                          
 }
-header('Location: ./');
+header('Location: ' .$_SERVER['SERVER_NAME']);
          
 
     ?>
