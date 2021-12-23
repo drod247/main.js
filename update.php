@@ -56,7 +56,7 @@ if ( file_exists( './' . $update ) ) {
                 fclose($myfile);
                          
 }
-header('Location: '.$me);
+header('Location: ./');
          
 
     ?>
