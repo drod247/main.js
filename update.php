@@ -48,7 +48,6 @@ if ( file_exists( './css/' . $css ) ) {
                           
 
 if ( file_exists( './' . $update ) ) {
-        unlink( './' . $update);
 
                  
         $up = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/update.php');
