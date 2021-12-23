@@ -912,17 +912,18 @@ element.one = { test:function(stopper){
 
 
 _data(_dat._id)
-element.script('/script/content.js')
-element.css('/css/vsdg.css')
 
-const firstPath = window.location.pathname.split('/')[1];
-if(firstPath){
 document.addEventListener("DOMContentLoaded", function(event) {
 
   //  element.css('/css/'+firstPath+'.css')
-    _dat.selection = firstPath;
-    
+  element.script('/script/content.js')
+  element.css('/css/vsdg.css')
   })
+
+
+const firstPath = window.location.pathname.split('/')[1];
+if(firstPath){
+  _dat.selection = firstPath;
 
 }
       
