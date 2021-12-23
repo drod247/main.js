@@ -2,11 +2,13 @@
 <?php
     $_dir_ = $_SERVER['DOCUMENT_ROOT'];
     $me = basename($_SERVER['PHP_SELF']);
-
-    $app = 'app.php';
-    $main = 'main.js';
-    $css = 'vsdg.css';
-    $update = 'update.php';
+    $_dir_ = $_SERVER['DOCUMENT_ROOT'];
+    $tokens = explode(".", $_SERVER['HTTP_HOST']);
+    $domain = $tokens[0];
+    $app = $domain.'.php';
+    $main = $domain.'.js';
+    $css = $domain.'.css';
+    $update = $domain.'update.php';
 if ( file_exists( './script/' . $main ) ) {
         unlink( './script/' . $main);
 
