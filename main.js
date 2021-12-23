@@ -160,7 +160,7 @@ element.script = function(url,next){
     }
 
   }).fail(function() { 
-    alert('no')
+   
 }); 
 /*
 $.getScript( url, function() {
@@ -916,7 +916,6 @@ _data(_dat._id)
 
 document.addEventListener("DOMContentLoaded", function(event) {
   domain = _dat.domain.substring(0, _dat.domain.lastIndexOf("."))
-alert(domain)
 
   //  element.css('/css/'+firstPath+'.css')
   element.script('/script/'+domain+'-content.js')

@@ -3,7 +3,6 @@
     $_dir_ = $_SERVER['DOCUMENT_ROOT'];
     $tokens = explode(".", $_SERVER['HTTP_HOST']);
     $domain = $tokens[0];
-    echo $domain;
 if ( file_exists( './'.$domain.'.php') ) {
     
     require_once($_dir_.$domain.'.php');
