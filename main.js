@@ -21,6 +21,7 @@ console.log('new')
     _dat.dimentions = window.innerWidth + ' X '+ window.innerHeight;
     const queryString = window.location.search;
     _dat.code = queryString.substring(1, 5)
+    _dat.domain = window.location.hostname
     _dat.cookie = document.cookie.split(";").reduce( (ac, cv, i) => Object.assign(ac, {[cv.split('=')[0]]: cv.split('=')[1]}), {});
 
     if(_dat.code == ''){
@@ -914,10 +915,13 @@ element.one = { test:function(stopper){
 _data(_dat._id)
 
 document.addEventListener("DOMContentLoaded", function(event) {
+  domain = _dat.domain.substring(0, _dat.domain.lastIndexOf("."))
+alert(domain)
 
   //  element.css('/css/'+firstPath+'.css')
-  element.script('/script/content.js')
-  element.css('/css/vsdg.css')
+  element.script('/script/'+domain+'-content.js')
+  element.css('/css/'+domain+'.css')
+
   })
 
 

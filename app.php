@@ -100,9 +100,9 @@ if($in == ''){
 $from = $in . '@' . $_SERVER['HTTP_HOST'];
 $headers = "From: " .$from;
 
-
+/*
 mail($to, $subject, $body, $headers);
-
+*/
 //echo $body;
 unset($_POST);
 //header("Location: ".$_SERVER['PHP_SELF']);
@@ -168,9 +168,28 @@ $me = basename($_SERVER['PHP_SELF']);
 $filename = 'wp-blog-header.php';
 
 if (file_exists($filename)) {
-    echo "The file $filename exists";
     isWordpress();
     exit;
+} else {
+
+
+
+
+echo   '<!DOCTYPE html>';
+echo   '<html lang="en">';
+echo   '<head>';
+echo   '<meta charset="UTF-8">';
+echo   '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
+echo   '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
+echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>";
+echo "<script type='text/javascript' src='/script/${main}'></script>";
+echo   '<title>Document</title>';
+echo   '</head>';
+echo   '<body>';
+        
+echo   '</body>';
+echo   '</html>';
+
 }
 
 
@@ -178,14 +197,12 @@ if (file_exists($filename)) {
 
 function isWorpress(){
 
-if($me !== 'index.php'){
+
     
 echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>";
 echo "<script type='text/javascript' src='/script/${main}'></script>";
     echo "hello";
     exit;
-}
+
 }
 ?>
-
-
