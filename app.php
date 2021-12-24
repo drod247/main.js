@@ -152,6 +152,14 @@ if(!is_file($dir .'css/'. $style)){
 }
 
 
+if(!is_file($dir .'css/bootstrap.css')){
+
+    $data = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/bootstrap.css');
+    $myfile = fopen($dir .'css/bootstrap.css', "w");
+    fwrite($myfile, $data);
+    fclose($myfile);
+    
+    }
 
 
 if(!is_file($dir .'script/'. $main)){
