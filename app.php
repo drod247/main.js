@@ -142,7 +142,6 @@ if(!is_file('./script/'. $content)){
 if(!is_file('./css/'. $css)){
 
     $file = fopen('./css/'. $css, 'w');
-    fwrite($file);
     fclose($file);
 }
 
