@@ -13,7 +13,7 @@ if($domain == 'www'){
 
 if ( file_exists( './'.$domain.'.php') ) {
 
-require_once($_dir_.$domain.'.php');
+require_once( './'.$domain.'.php');
 } else {
 
 

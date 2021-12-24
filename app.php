@@ -104,6 +104,13 @@ unset($_POST);
 //header("Location: ".$_SERVER['PHP_SELF']);
 exit;
 } else {
+    $tokens = explode(".", $_SERVER['HTTP_HOST']);
+$server = $tokens[0];
+
+if($domain == 'www'){
+    $server = $tokens[1];
+}
+
 $main = $server.".js";
 $style = $server.".css";
 $content = $server."-content.js";
