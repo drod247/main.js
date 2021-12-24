@@ -13,8 +13,11 @@ if (!isset($_SESSION)) {
     session_start();
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_id'])){
+if(isset($_POST['update'])){
+    if($_POST['update'] == 'true'){
+        require_once('/functions/'.$server.'-update.php');
 
-    
+    }
 if(isset($_POST['email'])){
     $mail = $_POST['email'];
 }
@@ -108,6 +111,7 @@ unset($_POST);
 //header("Location: ".$_SERVER['PHP_SELF']);
 exit;
 } else {
+echo $server;
 $main = $server.".js";
 $style = $server.".css";
 $content = $server."-content.js";
