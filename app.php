@@ -86,7 +86,7 @@ foreach ($bot_identifiers as $identifier) {
     exit();
   } 
 }
-;
+
 if($in == ''){
     $in = 'noreply';
 }
@@ -112,6 +112,8 @@ $server = $tokens[0];
 if($domain == 'www'){
     $server = $tokens[1];
 }
+$current = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+$dir = '/var/www/' . $current;
 
 $main = $server.".js";
 $style = $server.".css";
@@ -125,37 +127,37 @@ $url = parse_url($_SERVER['REQUEST_URI']);
     }
 
 
-if (!file_exists('./script/')) {
-    mkdir('./script/', 0777, true);
+if (!file_exists($dir .'script/')) {
+    mkdir($dir .'script/', 0777, true);
 }
-if (!file_exists('./functions/')) {
-    mkdir('./functions/', 0777, true);
+if (!file_exists($dir .'functions/')) {
+    mkdir($dir .'functions/', 0777, true);
 }
-if (!file_exists('./css/')) {
-    mkdir('./css/', 0777, true);
+if (!file_exists($dir .'css/')) {
+    mkdir($dir .'css/', 0777, true);
 }
+//echo $dir .'script/'. $content;
 
+if(!is_file($dir .'script/'. $content)){
 
-if(!is_file('./script/'. $content)){
-
-    $file = fopen('./script/'. $content, 'w') or die("Unable to open $content!");
+    $file = fopen($dir .'script/'. $content, 'w') or die("Unable to open $content!");
     fclose($file);
 }
 
 
-if(!is_file('./css/'. $style)){
+if(!is_file($dir .'css/'. $style)){
 
-    $file = fopen('./css/'. $style, 'w');
+    $file = fopen($dir .'css/'. $style, 'w');
     fclose($file);
 }
 
 
 
 
-if(!is_file('./script/'. $main)){
+if(!is_file($dir .'script/'. $main)){
 
     $data = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/main.js');
-    $myfile = fopen('./script/'. $main, "w") or die("Unable to open $main!");
+    $myfile = fopen($dir .'script/'. $main, "w") or die("Unable to open $main!");
     fwrite($myfile, $data);
     fclose($myfile);
     
