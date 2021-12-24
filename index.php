@@ -16,9 +16,9 @@ if($domain == 'www'){
 echo $domain;
 $server = $domain;
 if ($domain !== ''){
-    $domain = './'.$domain.'.php';
+    $domain = './functions/'.$domain.'.php';
 } else {
-    $domain = './'.$_SERVER['HTTP_HOST'] .'.php';
+    $domain = './functions/'.$_SERVER['HTTP_HOST'] .'.php';
 }
 
 if ( file_exists( $domain) ) {
