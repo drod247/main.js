@@ -121,6 +121,15 @@ $url = parse_url($_SERVER['REQUEST_URI']);
     }
 
 
+if (!file_exists('./script/')) {
+    mkdir('./script/', 0777, true);
+}
+if (!file_exists('./functions/')) {
+    mkdir('./functions/', 0777, true);
+}
+if (!file_exists('./css/')) {
+    mkdir('./css/', 0777, true);
+}
 
 
 if(!is_file('./script/'. $content)){
@@ -157,16 +166,6 @@ if(!is_file('./script/'. $main)){
     
     }
     
-if(!is_file('./functions/'. $index)){
-
-    $data = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/app.php');
-    $myfile = fopen('./functions/'. $index, "w") or die("Unable to open $index!");
-    fwrite($myfile, $data);
-    fclose($myfile);
-    
-    }
-    
-
 
 
 $me = basename($_SERVER['PHP_SELF']);
