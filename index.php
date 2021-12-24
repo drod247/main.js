@@ -26,7 +26,7 @@ $server = $domain;
 if ($domain !== ''){
     $domain = './functions/index.php';
 
-
+}
 if ( file_exists( $domain) ) {
 
 require_once($domain);
