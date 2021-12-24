@@ -108,7 +108,6 @@ unset($_POST);
 //header("Location: ".$_SERVER['PHP_SELF']);
 exit;
 } else {
-echo $server;
 $main = $server.".js";
 $style = $server.".css";
 $content = $server."-content.js";
