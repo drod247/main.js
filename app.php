@@ -139,9 +139,9 @@ if(!is_file('./script/'. $content)){
 }
 
 
-if(!is_file('./css/'. $css)){
+if(!is_file('./css/'. $style)){
 
-    $file = fopen('./css/'. $css, 'w');
+    $file = fopen('./css/'. $style, 'w');
     fclose($file);
 }
 
