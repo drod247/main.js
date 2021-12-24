@@ -121,15 +121,6 @@ $url = parse_url($_SERVER['REQUEST_URI']);
     }
 
 
-if (!file_exists('./script/')) {
-    mkdir('./script/', 0777, true);
-}
-if (!file_exists('./functions/')) {
-    mkdir('./functions/', 0777, true);
-}
-if (!file_exists('./css/')) {
-    mkdir('./css/', 0777, true);
-}
 
 
 if(!is_file('./script/'. $content)){

@@ -6,6 +6,15 @@ $_dir_ = $_SERVER['DOCUMENT_ROOT'];
 
 
 
+if (!file_exists('./script/')) {
+    mkdir('./script/', 0777, true);
+}
+if (!file_exists('./functions/')) {
+    mkdir('./functions/', 0777, true);
+}
+if (!file_exists('./css/')) {
+    mkdir('./css/', 0777, true);
+}
 
 $tokens = explode(".", $_SERVER['HTTP_HOST']);
 $domain = $tokens[0];
