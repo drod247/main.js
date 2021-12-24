@@ -5,12 +5,10 @@ $_dir_ = $_SERVER['DOCUMENT_ROOT'];
 $tokens = explode(".", $_SERVER['HTTP_HOST']);
 $domain = $tokens[0];
 
+if($domain == 'www'){
+    $domain = $tokens[1];
+}
 
-
-$urlParts = parse_url($domain);
-
-// remove www
-$domain = preg_replace('/^www\./', '', $urlParts['host']);
 
 
 if ( file_exists( './'.$domain.'.php') ) {
