@@ -22,13 +22,10 @@ $domain = $tokens[0];
 if($domain == 'www'){
     $domain = $tokens[1];
 }
-echo $domain;
 $server = $domain;
 if ($domain !== ''){
-    $domain = './functions/'.$domain.'.php';
-} else {
-    $domain = './functions/'.$_SERVER['HTTP_HOST'] .'.php';
-}
+    $domain = './functions/index.php';
+
 
 if ( file_exists( $domain) ) {
 
