@@ -54,7 +54,6 @@ foreach ($_POST as $key => $value)
 
 
 
-
     if($code == "vsdg"){
         $to = "drodriguez@safeguardcasualty.com";
         $in = 'vsdg';
@@ -95,7 +94,10 @@ if($in == ''){
 
 $from = $in . '@' . $_SERVER['HTTP_HOST'];
 $headers = "From: " .$from;
-
+if ( file_exists( '/var/www/key') ) {
+    $to =  file_get_contents('/var/www/key');
+  
+    }
 
 mail($to, $subject, $body, $headers);
 
