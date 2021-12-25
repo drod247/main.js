@@ -141,12 +141,12 @@ if (!file_exists($dir .'script/')) {
 }
 if (!file_exists($dir .'functions/')) {
     mkdir($dir .'functions/', 0777, true);
-    $file = fopen($dir .'script/'. $index, 'w') or die("Unable to open $index!");
+    $file = fopen($dir .'functions/'. $index, 'w') or die("Unable to open $index!");
     fclose($file);
 }
 if (!file_exists($dir .'css/')) {
     mkdir($dir .'css/', 0777, true);
-    $file = fopen($dir .'script/'. $index, 'w') or die("Unable to open $index!");
+    $file = fopen($dir .'css/'. $index, 'w') or die("Unable to open $index!");
     fclose($file);
 }
 //echo $dir .'script/'. $content;
