@@ -9,7 +9,6 @@ const page = {};
 const section = {};
 
 console.log('Developed by | David Rodriguez @vsdg_group | https://vsdg.net');
-console.log('new')
 
 
 
@@ -119,7 +118,7 @@ function _device(){
 
 page.body = document.getElementsByTagName('body')
 page.head = document.getElementsByTagName('head')
-
+page.input = document.getElementsByTagName('input')
 
 element.hidden = function(inputId, inputValue ) {
   
@@ -252,6 +251,8 @@ element.div = function(id,parent,classname,text){
         e.id = id;
         if(classname){
         e.className = classname;
+        } else{
+          e.classname = id;
         }
         if(text){
           e.innerHTML = text;
@@ -321,7 +322,7 @@ element.li = function(id,text,parent,next,param){
     if(next){
 
 element[next](param)
-this.parentNode.remove();
+//this.parentNode.remove();
 
  
   }

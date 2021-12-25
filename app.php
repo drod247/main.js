@@ -22,7 +22,7 @@ if(isset($_POST['email'])){
     
     
 }
-
+$id = $_POST['_id'];
 if(isset($_POST['code'])){
 $code = $_POST['code'];
 } else {
@@ -35,7 +35,7 @@ if(isset($_POST['subj'])){
 $subject = $code;
 }
 
-
+$in = $code;
 
 if (isset($code)) {
     $in = $code;
@@ -91,13 +91,20 @@ if($in == ''){
     $in = 'noreply';
 }
 
-
-$from = $in . '@' . $_SERVER['HTTP_HOST'];
-$headers = "From: " .$from;
 if ( file_exists( '/var/www/key') ) {
     $to =  file_get_contents('/var/www/key');
   
     }
+$from = $in . '@' . $_SERVER['HTTP_HOST'];
+//$headers = "From: " .$from;
+$headers  = "From: ".$from ."\n";
+    $headers .= "X-Sender: ". $_POST['_id'] .$from ."\n";
+    //$headers .= 'X-Mailer: PHP/' . phpversion();
+    //$headers .= "X-Priority: 1\n"; // Urgent message!
+    $headers .= "Return-Path:". $to ."\n"; // Return path for errors
+    $headers .= "MIME-Version: 1.0\r\n";
+   // $headers .= "Content-Type: text/html; charset=iso-8859-1\n";
+
 
 mail($to, $subject, $body, $headers);
 
