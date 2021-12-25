@@ -116,10 +116,6 @@ function _device(){
 
 
 
-page.body = document.getElementsByTagName('body')
-page.head = document.getElementsByTagName('head')
-page.input = document.getElementsByTagName('input')
-
 element.hidden = function(inputId, inputValue ) {
   
       var q = document.createElement("input");
@@ -916,8 +912,19 @@ element.one = { test:function(stopper){
   }
   alert('id')
 }}
+element.p = document.createElement('p')
 
 
+
+page.body = document.getElementsByTagName('body')
+page.head = document.getElementsByTagName('head')
+page.input = document.getElementsByTagName('input')
+page.li = document.getElementsByTagName('li')
+page.div = document.getElementsByTagName('div')
+page.div = document.getElementsByTagName('p')
+page.div = document.getElementsByTagName('ul')
+
+ 
 _data(_dat._id)
 
 document.addEventListener("DOMContentLoaded", function(event) {
