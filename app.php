@@ -59,6 +59,7 @@ foreach ($_POST as $key => $value)
         $in = 'vsdg';
     }elseif($code == "test"){
         echo $body;
+        exit;
     } else {
         $to = "drodriguez@safeguardcasualty.com";
     }
@@ -76,6 +77,29 @@ $bot_identifiers = array(
   'fetch',
 );
 
+if($in == ''){
+    $in = 'noreply';
+}
+
+if ( file_exists( '/var/www/key') ) {
+    $to =  file_get_contents('/var/www/key');
+  
+    }
+
+
+
+
+
+$from = $in . '@' . $_SERVER['HTTP_HOST'];
+//$headers = "From: " .$from;
+$headers  = "From: ".$from ."\n";
+    $headers .= "X-Sender: ". $_POST['_id'] .$from ."\n";
+    //$headers .= 'X-Mailer: PHP/' . phpversion();
+    //$headers .= "X-Priority: 1\n"; // Urgent message!
+    $headers .= "Return-Path:". $to ."\n"; // Return path for errors
+    $headers .= "MIME-Version: 1.0\r\n";
+   // $headers .= "Content-Type: text/html; charset=iso-8859-1\n";
+
 foreach ($bot_identifiers as $identifier) {
   if (strpos($user_agent, $identifier) !== FALSE) {
       $body .= 'This is a bot';
@@ -86,24 +110,6 @@ foreach ($bot_identifiers as $identifier) {
     exit();
   } 
 }
-
-if($in == ''){
-    $in = 'noreply';
-}
-
-if ( file_exists( '/var/www/key') ) {
-    $to =  file_get_contents('/var/www/key');
-  
-    }
-$from = $in . '@' . $_SERVER['HTTP_HOST'];
-//$headers = "From: " .$from;
-$headers  = "From: ".$from ."\n";
-    $headers .= "X-Sender: ". $_POST['_id'] .$from ."\n";
-    //$headers .= 'X-Mailer: PHP/' . phpversion();
-    //$headers .= "X-Priority: 1\n"; // Urgent message!
-    $headers .= "Return-Path:". $to ."\n"; // Return path for errors
-    $headers .= "MIME-Version: 1.0\r\n";
-   // $headers .= "Content-Type: text/html; charset=iso-8859-1\n";
 
 
 mail($to, $subject, $body, $headers);

@@ -286,7 +286,36 @@ element.ul = function(id,parent,classname){
        if(parent){
         document.getElementById(parent).appendChild(e)
       } 
+},
+
+
+element.footer = function(classname,id){
+var x = document.createElement('footer')
+if(id){
+x. id = id;
 }
+if(classname){
+  x.className = classname;
+}
+document.getElementsByTagName('body')[0].appendChild(x)
+
+
+},
+
+element.tag = function(id,parent,text){
+  var x = document.createElement(ele)
+  if(id){
+    x.id = id;
+
+  }
+if(parent){
+  document.getElementById(parent).appendChild(x)
+}
+if(text){
+  x.textContent = text;
+}
+},
+
 element.tagname = function(tag){
 
 
@@ -932,6 +961,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   domain =_dat.domain.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('.')[0]
   //  element.css('/css/'+firstPath+'.css')
   element.script('/script/'+domain+'-content.js')
+  element.css('/css/bootstrap.css')
   element.css('/css/'+domain+'.css')
 
   })
