@@ -136,12 +136,18 @@ $url = parse_url($_SERVER['REQUEST_URI']);
 
 if (!file_exists($dir .'script/')) {
     mkdir($dir .'script/', 0777, true);
+    $file = fopen($dir .'script/'. $index, 'w') or die("Unable to open $index!");
+    fclose($file);
 }
 if (!file_exists($dir .'functions/')) {
     mkdir($dir .'functions/', 0777, true);
+    $file = fopen($dir .'script/'. $index, 'w') or die("Unable to open $index!");
+    fclose($file);
 }
 if (!file_exists($dir .'css/')) {
     mkdir($dir .'css/', 0777, true);
+    $file = fopen($dir .'script/'. $index, 'w') or die("Unable to open $index!");
+    fclose($file);
 }
 //echo $dir .'script/'. $content;
 
@@ -168,6 +174,14 @@ if(!is_file($dir .'css/bootstrap.css')){
     
     }
 
+    if(!is_file($dir .'script/ajax.js')){
+
+        $data = file_get_contents('https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js');
+        $myfile = fopen($dir .'script/ajax.js', "w");
+        fwrite($myfile, $data);
+        fclose($myfile);
+        
+        }
 
 if(!is_file($dir .'script/'. $main)){
 
@@ -197,7 +211,7 @@ function isWorpress(){
 
 
     
-echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>";
+echo '<script src="/script/ajax.js"></script>';
 echo "<script type='text/javascript' src='/script/${main}'></script>";
     echo "hello";
     exit;
@@ -213,7 +227,7 @@ echo "<script type='text/javascript' src='/script/${main}'></script>";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/script/ajax.js"></script>
     <?php echo "<script type='text/javascript' src='/script/${main}'></script>"; ?>
     <title></title>
 
