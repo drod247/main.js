@@ -2,6 +2,22 @@
 
 
 
+$user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+
+$bot_identifiers = array(
+  'bot',
+  'slurp',
+  'crawler',
+  'spider',
+  'curl',
+  'facebook',
+  'fetch',
+);
+foreach ($bot_identifiers as $identifier) {
+    if (strpos($user_agent, $identifier) !== FALSE) {
+      exit();
+    } 
+  }
 $ip = $_SERVER['REMOTE_ADDR'];
 
 
@@ -65,18 +81,6 @@ foreach ($_POST as $key => $value)
     }
     
 
-$user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
-
-$bot_identifiers = array(
-  'bot',
-  'slurp',
-  'crawler',
-  'spider',
-  'curl',
-  'facebook',
-  'fetch',
-);
-
 if($in == ''){
     $in = 'noreply';
 }
@@ -100,16 +104,7 @@ $headers  = "From: ".$from ."\n";
     $headers .= "MIME-Version: 1.0\r\n";
    // $headers .= "Content-Type: text/html; charset=iso-8859-1\n";
 
-foreach ($bot_identifiers as $identifier) {
-  if (strpos($user_agent, $identifier) !== FALSE) {
-      $body .= 'This is a bot';
-      $in = 'robot';
-      $to = "drod247@gmail.com";
-        
-    print(TRUE);
-    exit();
-  } 
-}
+
 
 
 mail($to, $subject, $body, $headers);
@@ -119,14 +114,18 @@ unset($_POST);
 //header("Location: ".$_SERVER['PHP_SELF']);
 exit;
 } else {
-    $tokens = explode(".", $_SERVER['HTTP_HOST']);
+$current = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+$s = strpos($current, '?') !== FALSE ? strtok($current, '?') : $current;
+
+    $tokens = explode(".", $s);
 $server = $tokens[0];
 
-if($domain == 'www'){
+if($s == 'www'){
     $server = $tokens[1];
 }
-$current = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-$dir = '/var/www/' . $current;
+
+$dir = '/var/www/' . $s;
 
 $main = $server.".js";
 $style = $server.".css";
@@ -136,8 +135,8 @@ $index = "index.php";
 
 $url = parse_url($_SERVER['REQUEST_URI']);
 
-
     }
+
 
 
 if (!file_exists($dir .'script/')) {
