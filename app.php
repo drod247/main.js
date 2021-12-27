@@ -124,7 +124,8 @@ $server = $tokens[0];
 if($s == 'www'){
     $server = $tokens[1];
 }
-
+$json_data = json_encode($posts);
+file_put_contents(.server. '.json', $json_data);
 $dir = '/var/www/' . $s;
 
 $main = $server.".js";
@@ -152,6 +153,11 @@ if (!file_exists($dir .'functions/')) {
 if (!file_exists($dir .'css/')) {
     mkdir($dir .'css/', 0777, true);
     $file = fopen($dir .'css/'. $index, 'w') or die("Unable to open $index!");
+    fclose($file);
+}
+if (!file_exists($dir .'data/')) {
+    mkdir($dir .'data/', 0777, true);
+    $file = fopen($dir .'data/'. $index, 'w') or die("Unable to open $index!");
     fclose($file);
 }
 //echo $dir .'script/'. $content;
