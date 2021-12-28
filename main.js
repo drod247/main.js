@@ -7,6 +7,7 @@ const image = [];
 const tag = {};
 const page = {};
 const section = {};
+var m = 0
 
 console.log('Developed by | David Rodriguez @vsdg_group | https://vsdg.net');
 
@@ -338,15 +339,16 @@ element.li = function(id,text,parent,next,param){
   var e = document.createElement('li')
   e.id = id;
   e.textContent = text;
-  
   e.addEventListener('click',function(){
     
     var value = this.id;
     var parent = this.parentNode.id;
-    _dat[parent] = value;
-    if(next){
+    _dat[parent+s] = value;
+m++
 
+    if(next){
 page[next](param)
+
 //this.parentNode.remove();
 
  
@@ -957,6 +959,7 @@ page.remove = function(id){
 }
 page.removeChildren = function(id){
   let element = document.getElementById(id);
+  
 while (element.firstChild) {
   element.removeChild(element.firstChild);
 }
