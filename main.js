@@ -198,7 +198,7 @@ element.link = function(param){
   window.location.href = param;
 }
 
-element.select = function(id,parent,text,next){
+element.select = function(id,parent,text,next,param){
   var e = document.createElement('select')
   e.id = id;
   if(next){
@@ -206,7 +206,7 @@ element.select = function(id,parent,text,next){
 
      var name = this.id
      _dat[name] = this.value 
-     element[next]()
+     element[next](param)
      this.parentNode.remove()
     }
   }
@@ -346,7 +346,7 @@ element.li = function(id,text,parent,next,param){
     _dat[parent] = value;
     if(next){
 
-element[next](param)
+page[next](param)
 //this.parentNode.remove();
 
  
@@ -952,7 +952,15 @@ page.li = document.getElementsByTagName('li')
 page.div = document.getElementsByTagName('div')
 page.div = document.getElementsByTagName('p')
 page.div = document.getElementsByTagName('ul')
-
+page.remove = function(id){
+  document.getElementById(id).remove()
+}
+page.removeChildren = function(id){
+  let element = document.getElementById(id);
+while (element.firstChild) {
+  element.removeChild(element.firstChild);
+}
+}
  
 _data(_dat._id)
 
