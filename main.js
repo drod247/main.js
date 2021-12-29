@@ -7,7 +7,7 @@ const image = [];
 const tag = {};
 const page = {};
 const section = {};
-var m = 0
+//var m = 0
 
 console.log('Developed by | David Rodriguez @vsdg_group | https://vsdg.net');
 
@@ -161,10 +161,13 @@ element.script = function(url,next){
 }); 
 
 }
-element.form = function(parent){
+element.form = function(parent,classname){
       
       var form = document.createElement('form')
       form.id = _dat._id;
+      if(classname){
+        form.className = classname;
+      }
       if(parent){
         document.getElementById(parent).appendChild(form)
       } 
@@ -335,16 +338,19 @@ element.tagname = function(tag){
     document.getElementById(tag.parent).appendChild(e)
   }
 }
-element.li = function(id,text,parent,next,param){
+element.li = function(id,text,parent,next,param,classname){
   var e = document.createElement('li')
   e.id = id;
   e.textContent = text;
+  if(classname){
+    e.className = classname;
+  }
   e.addEventListener('click',function(){
     
     var value = this.id;
     var parent = this.parentNode.id;
-    _dat[parent+s] = value;
-m++
+    _dat[parent] = value;
+//m++
 
     if(next){
 page[next](param)
@@ -532,7 +538,7 @@ element.section = {
 
 
 
-  address: function(parent,next){
+  address: function(parent,next,classname){
       
   
     element.div('address',parent)
@@ -544,6 +550,10 @@ element.section = {
         var inputElement = document.createElement("input");
         inputElement.setAttribute("type", "text");
         inputElement.setAttribute("placeholder", options.placeholder);
+        if(classname){
+        inputElement.setAttribute("class", classname);
+
+        }
         containerElement.appendChild(inputElement);
       
         // add input field clear button
@@ -599,7 +609,7 @@ element.section = {
             
     
             var apiKey = "2277366390db49ea93f8df7e37726fd5";
-            var url = `https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(currentValue)}&limit=5&filter=countrycode:us&bias=countrycode:us&apiKey=${apiKey}`;
+            var url = `https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(currentValue)}%20${_dat.zip}&limit=5&type=street&filter=countrycode:us&bias=proximity:${_dat.longitude},${_dat.latitude}|countrycode:none&apiKey=${apiKey}`;
             
             if (options.type) {
                 url += `&type=${options.type}`;
@@ -836,12 +846,12 @@ element.section = {
         style: {
           // Text color.
           // Default: same as stroke color (options.color)
-          color: '#999',
+          color: 'aliceblue',
           padding: 0,
           margin: 0,
           transform: null
         },
-        autoStyleContainer: false
+        autoStyleContainer: true
       },
       from: {color: '#FFEA82'},
       to: {color: '#ED6A5A'},
