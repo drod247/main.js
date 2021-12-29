@@ -372,12 +372,10 @@ tags: function(){
 var all = document.getElementsByTagName('*')
 var i;
 for(i=0, max=all.length;i<max; i++){
-console.log(all[i].tagName)
 }
 },
 
   back: function(prevFunction){
-  console.log(this.id)
     
     if(prevFunction){
     element[prevFunction]()
@@ -386,7 +384,6 @@ console.log(all[i].tagName)
 
   next: function(next){
     if(next){
-      console.log(this.id)
       elemen[next]()
     }
   },
@@ -621,7 +618,6 @@ element.section = {
       
           promise.then((data) => {
             currentItems = data.features;
-            console.log(currentItems)
             /*create a DIV element that will contain the items (values):*/
             var autocompleteItemsElement = document.createElement("div");
             autocompleteItemsElement.setAttribute("class", "autocomplete-items");
@@ -649,7 +645,6 @@ element.section = {
             });
           }, (err) => {
             if (!err.canceled) {
-              console.log(err);
             }
           });
         });
@@ -741,7 +736,6 @@ element.section = {
       }
       
       _address(document.getElementById("address"), (data) => {
-        console.log(data)
        element.action.ajax('address')
       }, {
           placeholder: "Enter address"
@@ -818,21 +812,23 @@ element.section = {
         element.input('email','email','Email address',parent)
   
       },
-  progress: function(parent){
+
+
+      //section.bar.animate(.2) to animate
+  progress: function(parent,percentage){
       
-  var url = '/progressBar.js'
+  var url = '/script/line.js'
   $.getScript( url, function() {
-    element.div('section',parent)
+    element.div('ele',parent)
   
   }).done(function(){
-    const p = {}
-    console.log(parent)
-    p.top = parent;
-    sections.bar = new ProgressBar.Line(section, {
-      strokeWidth: 4,
+
+    section.bar = new ProgressBar.Line(ele, {
+      strokeWidth: 1,
       easing: 'easeInOut',
       duration: 1400,
-      color: '#FFEA82',
+      color: '#9ad0ff',
+      textShadow: '0rem 0rem 1rem #9283ff',
       trailColor: '#eee',
       trailWidth: 1,
       svgStyle: {width: '100%', height: '100%'},
@@ -853,6 +849,9 @@ element.section = {
         bar.setText(Math.round(bar.value() * 100) + ' %');
       }
     });
+  }).then(function(){
+section.bar.animate(percentage)
+
   })
     
   
@@ -943,10 +942,14 @@ element.one = { test:function(stopper){
   }
   alert('id')
 }}
+
+
+
+
+
+
+
 element.p = document.createElement('p')
-
-
-
 page.body = document.getElementsByTagName('body')
 page.head = document.getElementsByTagName('head')
 page.input = document.getElementsByTagName('input')
@@ -954,9 +957,16 @@ page.li = document.getElementsByTagName('li')
 page.div = document.getElementsByTagName('div')
 page.div = document.getElementsByTagName('p')
 page.div = document.getElementsByTagName('ul')
+
+
+element.text = function(id,text){
+  document.getElementById(id).textContent = text;
+}
 page.remove = function(id){
   document.getElementById(id).remove()
 }
+
+
 page.removeChildren = function(id){
   let element = document.getElementById(id);
   
