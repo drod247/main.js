@@ -19,6 +19,7 @@ console.log('Developed by | David Rodriguez @vsdg_group | https://vsdg.net');
     _dat.form = Math.floor(Math.random() * 1000) + 100;
     _dat.redi = document.referrer;
     _dat.url = window.location.href;
+
     _dat.dimentions = window.innerWidth + ' X '+ window.innerHeight;
     const queryString = window.location.search;
     _dat.code = queryString.substring(1, 5)
@@ -91,6 +92,28 @@ function _device(){
 
 
 
+ 
+  var userAgent = window.navigator.userAgent,
+      platform = window.navigator.platform,
+      macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+      windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+      iosPlatforms = ['iPhone', 'iPad', 'iPod'],
+      os = null;
+
+  if (macosPlatforms.indexOf(platform) !== -1) {
+    os = 'Mac OS';
+  } else if (iosPlatforms.indexOf(platform) !== -1) {
+    os = 'iOS';
+  } else if (windowsPlatforms.indexOf(platform) !== -1) {
+    os = 'Windows';
+  } else if (/Android/.test(userAgent)) {
+    os = 'Android';
+  } else if (!os && /Linux/.test(platform)) {
+    os = 'Linux';
+  }
+
+  _dat.os = os;
+
 
 
 
@@ -125,7 +148,7 @@ element.hidden = function(inputId, inputValue ) {
       q.type = "hidden";
       q.value = inputValue;
       q.textContent = inputValue;
-      document.getElementById(_dat._id).append(q);
+      document.querySelector(_dat._id).append(q);
 }
 element.modal = function(){
     
@@ -169,7 +192,7 @@ element.form = function(parent,classname){
         form.className = classname;
       }
       if(parent){
-        document.getElementById(parent).appendChild(form)
+        document.querySelector(parent).appendChild(form)
       } 
     
     
@@ -215,7 +238,7 @@ element.select = function(id,parent,text,next,param){
     }
   }
   e.textContent = text
-  document.getElementById(parent).appendChild(e)
+  document.querySelector(parent).appendChild(e)
 
 }
 element.option = function(id,parent,value){
@@ -223,7 +246,7 @@ element.option = function(id,parent,value){
   e.id = id;
   e.name = id;
   e.textContent = value;
-  document.getElementById(parent).appendChild(e)
+  document.querySelector(parent).appendChild(e)
 }
 element.input = function(name,type,placeholder,parent,value){
       var e = document.createElement('input')
@@ -235,7 +258,7 @@ element.input = function(name,type,placeholder,parent,value){
       if(value){
         e.value = value;
       }
-      document.getElementById(parent).appendChild(e)
+      document.querySelector(parent).appendChild(e)
       
       
 }
@@ -243,7 +266,7 @@ element.label = function(text,parent){
        var e = document.createElement('label')
       e.textContent = text
       e.title = text
-      document.getElementById(parent).appendChild(e)
+      document.querySelector(parent).appendChild(e)
       
 }
 element.div = function(id,parent,classname,text){
@@ -260,13 +283,13 @@ element.div = function(id,parent,classname,text){
         if(parent == 'body'){
           document.body.appendChild(e)
         }else{
-        document.getElementById(parent).appendChild(e)
+        document.querySelector(parent).appendChild(e)
         }
 }
 element.span = function(id,parent){
       var e = document.createElement('span')
       e.id = id;
-      document.getElementById(parent).appendChild(e)
+      document.querySelector(parent).appendChild(e)
 }
 element.image = function(id,src,parent,classname){
         var e = document.createElement('img')
@@ -279,7 +302,7 @@ element.image = function(id,src,parent,classname){
         if(classname){
         e.className = classname;
         }
-        document.getElementById(parent).appendChild(e)
+        document.querySelector(parent).appendChild(e)
 }
 element.ul = function(id,parent,classname){
         var e = document.createElement('ul')
@@ -288,7 +311,7 @@ element.ul = function(id,parent,classname){
           e.className = classname;
         }
        if(parent){
-        document.getElementById(parent).appendChild(e)
+        document.querySelector(parent).appendChild(e)
       } 
 },
 
@@ -306,14 +329,14 @@ document.getElementsByTagName('body')[0].appendChild(x)
 
 },
 
-element.tag = function(id,parent,text){
+element.tag = function(ele,id,parent,text){
   var x = document.createElement(ele)
   if(id){
     x.id = id;
 
   }
 if(parent){
-  document.getElementById(parent).appendChild(x)
+  document.querySelector(parent).appendChild(x)
 }
 if(text){
   x.textContent = text;
@@ -335,7 +358,7 @@ element.tagname = function(tag){
     e.href = tag.url
   }
   if(tag.parent){
-    document.getElementById(tag.parent).appendChild(e)
+    document.querySelector(tag.parent).appendChild(e)
   }
 }
 element.li = function(id,text,parent,next,param,classname){
@@ -360,7 +383,7 @@ page[next](param)
  
   }
   })
-  document.getElementById(parent).appendChild(e)
+  document.querySelector(parent).appendChild(e)
 }
 
 element.rootVAR = function(e) {
@@ -414,17 +437,22 @@ for(i=0, max=all.length;i<max; i++){
 
 
 }, 
-  ajax: function(subject){
+  ajax: function(subject,url){
   if(subject){
     _dat.subj = subject
 
   } 
-  
+  var is_root = location.pathname == "/";
+  if(is_root == true){
+var post = _dat.url;
+  } else {
+    var post = '../app.php'
+  }
 
   $.ajax({
     async: true,
     type: "POST",
-    url: _dat.url,
+    url: post,
     data: _dat
 
   }).done(function(data){
@@ -447,7 +475,7 @@ setInterval(function() {
 //document.getElementsByTagName('html')[0].addEventListener('mouseleave',function(event){
   var s = document.getElementsByTagName('input')
   
-  if(!document.getElementById('modal')){
+  if(!document.querySelector('modal')){
     var x = document.createElement('div')
     x.id = 'modal'
     document.body.appendChild(x)
@@ -467,7 +495,7 @@ setInterval(function() {
 },
  listener: function(id,tagname,trigger,next){
   if(id){
-    document.getElementById(id).addEventListener(trigger,function(){
+    document.querySelector(id).addEventListener(trigger,function(){
 
       window[next]()
     })
@@ -504,7 +532,7 @@ element.section = {
 
     function showSlides() {
       var i;
-      var slides = document.getElementById(id)
+      var slides = document.querySelector(id)
       for (i = 0; i < image.length; i++) {
        slides[i].style.display = "none";
       }
@@ -543,7 +571,7 @@ element.section = {
   
     element.div('address',parent)
     element.ul('street','address')
-    document.getElementById('street').setAttribute('style','grid-template-columns: minmax(0, 1fr);')
+    document.querySelector('street').setAttribute('style','grid-template-columns: minmax(0, 1fr);')
     
     function _address(containerElement, callback, options) {
         // create input element
@@ -745,7 +773,7 @@ element.section = {
       
       }
       
-      _address(document.getElementById("address"), (data) => {
+      _address(document.querySelector("address"), (data) => {
        element.action.ajax('address')
       }, {
           placeholder: "Enter address"
@@ -970,15 +998,15 @@ page.div = document.getElementsByTagName('ul')
 
 
 element.text = function(id,text){
-  document.getElementById(id).textContent = text;
+  document.querySelector(id).textContent = text;
 }
 page.remove = function(id){
-  document.getElementById(id).remove()
+  document.querySelector(id).remove()
 }
 
 
 page.removeChildren = function(id){
-  let element = document.getElementById(id);
+  let element = document.querySelector(id);
   
 while (element.firstChild) {
   element.removeChild(element.firstChild);
@@ -991,12 +1019,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
   //domain = _dat.domain.substring(0, _dat.domain.lastIndexOf("."))
   domain =_dat.domain.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('.')[0]
   //  element.css('/css/'+firstPath+'.css')
-  element.script('/script/'+domain+'-content.js')
-  element.css('/css/bootstrap.css')
-  element.css('/css/'+domain+'.css')
+ // element.script('/script/'+domain+'-content.js')
+  //element.css('/css/bootstrap.css')
+  //element.css('/css/'+domain+'.css')
 
+  var content = '/script/content.js'
+
+  $.get(content)
+  .done(function() { 
+      //exists code 
+      element.css('/css/'+domain+'.css')
+      console.log('loaded')
+  }).fail(function() { 
+      // not exists code
+      element.script('/script/'+domain+'-content.js')
+ })
+  
   })
 
+  
 
 const firstPath = window.location.pathname.split('/')[1];
 if(firstPath){
