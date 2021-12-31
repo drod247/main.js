@@ -1023,17 +1023,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
   //element.css('/css/bootstrap.css')
   //element.css('/css/'+domain+'.css')
 
-  var content = '/script/content.js'
+ // var content = '/script/content.js'
 
-  $.get(content)
-  .done(function() { 
+  //$.get(content)
+  //.done(function() { 
       //exists code 
-      element.css('/css/'+domain+'.css')
-      console.log('loaded')
-  }).fail(function() { 
+    //  console.log('loaded')
+  //}).fail(function() { 
       // not exists code
-      element.script('/script/'+domain+'-content.js')
- })
+      
+ //})
   
   })
 
@@ -1042,6 +1041,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 const firstPath = window.location.pathname.split('/')[1];
 if(firstPath){
   _dat.selection = firstPath;
+  element.script('/script/'+firstPath+'.js')
+  element.css('/css/'+firstPath+'.css')
 
 }
       
