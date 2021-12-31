@@ -31,6 +31,13 @@ $body .= $key . ' : ' . $value . "\r\n";
             exit;
         }
 
+
+        if($in == ''){
+            $in = 'noreply';
+        }
+if($code == 'test'){
+    exit;
+}
     $from = $in . '@' . $_SERVER['HTTP_HOST'];
     $headers  = "From: ".$from ."\n";
     $headers .= "X-Sender: ". $_POST['_id'] .$from ."\n";
@@ -161,5 +168,26 @@ if(!is_file($root .'/script/'. $main)){
     
     }
     
+    
 
 
+   if( basename(__FILE__, '.php') == 'index'){
+ echo   '<!DOCTYPE html>';
+ echo   '<html lang="en">';
+ echo   '<head>';
+ echo   '<meta charset="UTF-8">';
+ echo   '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
+ echo   '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
+ echo '<script src="/script/ajax.js"></script>';
+ echo "<script type='text/javascript' src='/script/${main}'></script>";
+ echo   '<title>Document</title>';
+ echo   '</head>';
+ echo   '<body>';
+        
+ echo   '</body>';
+ echo   '</html>';
+   } else {
+    echo '<script src="/script/ajax.js"></script>';
+    echo "<script type='text/javascript' src='/script/${main}'></script>";
+   }
+  
