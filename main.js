@@ -1026,9 +1026,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
   //domain = _dat.domain.substring(0, _dat.domain.lastIndexOf("."))
   domain =_dat.domain.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('.')[0]
   //  element.css('/css/'+firstPath+'.css')
- // element.script('/script/'+domain+'-content.js')
+  element.script('/script/content.js')
   //element.css('/css/bootstrap.css')
-  //element.css('/css/'+domain+'.css')
+  element.css('/css/style.css')
 
  // var content = '/script/content.js'
 
@@ -1048,8 +1048,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 const firstPath = window.location.pathname.split('/')[1];
 if(firstPath){
   _dat.selection = firstPath;
-  element.script('/script/'+firstPath+'.js')
-  element.css('/css/'+firstPath+'.css')
+//  element.script('/script/'+firstPath+'.js')
+ // element.css('/css/'+firstPath+'.css')
 
 }
       
