@@ -773,12 +773,11 @@ element.section = {
       
       }
       
-      _address(document.querySelector("#address"), (data) => {
+_address(document.querySelector("#address"), (data) => {
        element.action.ajax('address')
       }, {
           placeholder: "Enter address"
       });
-  
       },
 
   image_folder: function(folder){
@@ -795,8 +794,7 @@ element.section = {
           });
       }
   })
-
-      },
+},
 
 
 

