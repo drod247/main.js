@@ -31,31 +31,31 @@ console.log('Developed by | David Rodriguez @vsdg_group | https://vsdg.net');
     }
     const _id = _dat._id;
     
+page.track = () =>{
 
-function _data(){
+  if(_dat.code == 'test'){
+    _dat.ip = 'Test'
+     _dat.latitude = 'Test'
+     _dat.longitude = 'Test'
+     _dat.Internet = 'Test'
+  } else {
+
+ $.getJSON("https://ip-api.io/api/json",
  
-      if(_dat.code == 'test'){
-        _dat.ip = 'Test'
-         _dat.latitude = 'Test'
-         _dat.longitude = 'Test'
-         _dat.Internet = 'Test'
-      } else {
-   
-     $.getJSON("https://ip-api.io/api/json",
-     
-     function(data){
-        _dat.ip = data.ip
-         _dat.latitude = data.latitude
-         _dat.longitude = data.longitude
-         _dat.Internet = data.organisation
-     }).done(function(){
- _device()
-     }).fail(function(){
-       _device()
-     });
-       }
-     }
-function _device(){
+ function(data){
+    _dat.ip = data.ip
+     _dat.latitude = data.latitude
+     _dat.longitude = data.longitude
+     _dat.Internet = data.organisation
+ }).done(function(){
+page.device()
+ }).fail(function(){
+   page.device()
+ });
+   }
+}
+
+page.device = () =>{
  
    var browser = (function() {
      var test = function(regexp) {return regexp.test(window.navigator.userAgent)}
@@ -570,8 +570,8 @@ element.section = {
       
   
     element.div('address',parent)
-    element.ul('street','address')
-    document.querySelector('street').setAttribute('style','grid-template-columns: minmax(0, 1fr);')
+    element.ul('street','#address')
+    document.querySelector('#street').setAttribute('style','grid-template-columns: minmax(0, 1fr);')
     
     function _address(containerElement, callback, options) {
         // create input element
@@ -636,7 +636,7 @@ element.section = {
             };
             
     
-            var apiKey = "2277366390db49ea93f8df7e37726fd5";
+            var apiKey = page.api;
             var url = `https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(currentValue)}%20${_dat.zip}&limit=5&type=street&filter=countrycode:us&bias=proximity:${_dat.longitude},${_dat.latitude}|countrycode:none&apiKey=${apiKey}`;
             
             if (options.type) {
@@ -676,7 +676,7 @@ element.section = {
       
                 /* Close the list of autocompleted values: */
                 closeDropDownList();
-                functions[next]()
+                page[next]()
               });
       
               autocompleteItemsElement.appendChild(itemElement);
@@ -773,7 +773,7 @@ element.section = {
       
       }
       
-      _address(document.querySelector("address"), (data) => {
+      _address(document.querySelector("#address"), (data) => {
        element.action.ajax('address')
       }, {
           placeholder: "Enter address"
@@ -853,19 +853,36 @@ element.section = {
 
 
       //section.bar.animate(.2) to animate
-  progress: function(parent,percentage){
+  progress: function(parent,percentage,color,width){
+const bar = {}
+      if(!percentage){
+        bar.number = '0';
+      } else {
+        bar.number = percentage;
       
+      }
+      if(!color){
+        bar.style = 'blue';
+      }else {
+        bar.style = color;
+      }
+      if(!width){
+        bar.size = '1';
+      } else {
+        bar.size = width
+      }
   var url = '/script/line.js'
   $.getScript( url, function() {
     element.div('ele',parent)
-  
+var x = document.getElementById('ele')
+x.style.height = '10px'
   }).done(function(){
 
     section.bar = new ProgressBar.Line(ele, {
-      strokeWidth: 1,
+      strokeWidth: bar.size,
       easing: 'easeInOut',
       duration: 1400,
-      color: '#9ad0ff',
+      color: bar.style,
       textShadow: '0rem 0rem 1rem #9283ff',
       trailColor: '#eee',
       trailWidth: 1,
@@ -888,7 +905,7 @@ element.section = {
       }
     });
   }).then(function(){
-section.bar.animate(percentage)
+section.bar.animate(bar.number)
 
   })
     
@@ -1020,7 +1037,6 @@ while (element.firstChild) {
 
 
 
-_data(_dat._id)
 
 document.addEventListener("DOMContentLoaded", function(event) {
   //domain = _dat.domain.substring(0, _dat.domain.lastIndexOf("."))
@@ -1048,8 +1064,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 const firstPath = window.location.pathname.split('/')[1];
 if(firstPath){
   _dat.selection = firstPath;
-//  element.script('/script/'+firstPath+'.js')
- // element.css('/css/'+firstPath+'.css')
+  element.script('/script/'+firstPath+'.js')
+  element.css('/css/'+firstPath+'.css')
 
 }
       
