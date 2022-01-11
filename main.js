@@ -7,7 +7,6 @@ const image = [];
 const tag = {};
 const page = {};
 const section = {};
-//var m = 0
 
 console.log('Developed by | David Rodriguez @vsdg_group | https://vsdg.net');
 
