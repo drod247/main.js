@@ -13,7 +13,13 @@
  */
 define( 'WP_USE_THEMES', true );
 
-    
+   
+
+/** Loads the WordPress Environment and Template */
+require __DIR__ . '/wp-blog-header.php';
+//include_once( __DIR__ . '/app.php');
+
+ 
 $url = 'https://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 
 $match = array('customize','admin','wp-admin');
@@ -26,13 +32,10 @@ if (strpos($url, $match) !== false) {
 
 //include_once __DIR__ . '/app.php';
 
+include_once( __DIR__ . '/app.php');
 
 
 
 // include_once(ABSPATH . 'app.php'); add to wp-config.php if wordpress | index.php if not wordpress
 
     }
-
-/** Loads the WordPress Environment and Template */
-require __DIR__ . '/wp-blog-header.php';
-include_once( __DIR__ . '/app.php');
