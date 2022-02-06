@@ -175,7 +175,7 @@ element.script = function(url,next){
 
   }).done(function(){
     if(next){
-      window[next]()
+      page[next]()
     }
 
   }).fail(function() { 
@@ -445,7 +445,7 @@ for(i=0, max=all.length;i<max; i++){
   if(is_root == true){
 var post = _dat.url;
   } else {
-    var post = '../app.php'
+    var post = '../load.php'
   }
 
   $.ajax({
@@ -567,7 +567,10 @@ element.section = {
 
   address: function(parent,next,classname){
       
+if(!page.api){
+  alert('Missing key')
   
+}
     element.div('address',parent)
     element.ul('street','#address')
     document.querySelector('#street').setAttribute('style','grid-template-columns: minmax(0, 1fr);')
@@ -595,7 +598,9 @@ element.section = {
           closeDropDownList();
         });
         containerElement.appendChild(clearButton);
-      
+
+
+
         /* Current autocomplete items data (GeoJSON.Feature) */
         var currentItems;
       
@@ -675,7 +680,7 @@ element.section = {
       
                 /* Close the list of autocompleted values: */
                 closeDropDownList();
-                page[next]()
+                //page[next]()
               });
       
               autocompleteItemsElement.appendChild(itemElement);
@@ -777,6 +782,7 @@ _address(document.querySelector("#address"), (data) => {
       }, {
           placeholder: "Enter address"
       });
+
       },
 
   image_folder: function(folder){
@@ -850,7 +856,7 @@ _address(document.querySelector("#address"), (data) => {
 
 
       //section.bar.animate(.2) to animate
-  progress: function(parent,percentage,color,width){
+  progress: function(parent,percentage,color,width,next){
 const bar = {}
       if(!percentage){
         bar.number = '0';
@@ -891,7 +897,7 @@ x.style.height = '10px'
           color: 'aliceblue',
           padding: 0,
           margin: 0,
-          transform: null
+          transform: null,
         },
         autoStyleContainer: true
       },
@@ -903,7 +909,9 @@ x.style.height = '10px'
     });
   }).then(function(){
 section.bar.animate(bar.number)
-
+if(next){
+page[next]()
+}
   })
     
   
@@ -1007,10 +1015,8 @@ page.head = document.getElementsByTagName('head')
 page.input = document.getElementsByTagName('input')
 page.li = document.getElementsByTagName('li')
 page.div = document.getElementsByTagName('div')
-page.div = document.getElementsByTagName('p')
-page.div = document.getElementsByTagName('ul')
-
-
+page.p = document.getElementsByTagName('p')
+page.ul = document.getElementsByTagName('ul')
 element.text = function(id,text){
   document.querySelector(id).textContent = text;
 }
@@ -1028,7 +1034,7 @@ while (element.firstChild) {
 }
  
 
-
+page.emptyForm = page.removeChildren('#'+_id)
 
 
 

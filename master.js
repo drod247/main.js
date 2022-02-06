@@ -1,4 +1,5 @@
 
+console.log('Developed by | David Rodriguez @vsdg_group | https://vsdg.net');
 
 const _dat = {};
 const vsdg = {};
@@ -18,7 +19,6 @@ const track = {}
 var cookie = {}
 const action = {};
 
-console.log('Developed by | David Rodriguez @vsdg_group | https://vsdg.net' );
 
 
 
@@ -42,6 +42,12 @@ const firstPath = window.location.pathname.split('/')[1];
 
 
 
+form.json = (parent,id,tag) => {
+  tag = tag.replace('#','')
+  form[parent.replace('#','')] = {
+    [tag]: id
+  }
+}
 
 
 
@@ -207,9 +213,6 @@ if(url){
 
 if(!info){
   console.log('Missing ' + info)
-}
-if(!track.to){
-  console.log('track.to missing')
 }
   if(track.code == 'test'){
     track.ip = 'Test'
@@ -510,7 +513,9 @@ element.create = (tag,id,classname,parent) =>{
   e.id = id
   e.className = classname
   document.querySelector(parent).appendChild(e)
-  form.json(parent,id,e.tagName)
+  
+var name = e.tagName
+  json[name] = id
   
 }
 
@@ -819,7 +824,9 @@ element.select = function(id,parent,next,param){
   }
   
   document.querySelector(parent).appendChild(e)
-  form.json(parent,id,e.tagName)
+  
+var name = e.tagName
+  json[name] = id
   var name = e.tagName +1
   tag[name]= _id + 1
 
@@ -847,7 +854,9 @@ element.option = function(id,parent,value){
   }
 
   document.querySelector(parent).appendChild(e)
-  form.json(parent,id,e.tagName)
+  
+var name = e.tagName
+  json[name] = id
 
 }
 
@@ -874,11 +883,15 @@ element.input = function(name,type,placeholder,parent,value){
         e.addEventListener('keyup',formatToPhone);
       }
       e.addEventListener('blur',function(){
+        track[this.name] = this.value
 
         _dat[this.name] = this.value
       })
       document.querySelector(parent).appendChild(e)
-      form.json(parent,name,e.tagName)
+      
+var name = e.tagName
+  json[name] = id
+  
 
       
       
@@ -892,7 +905,9 @@ element.label = function(text,parent){
       e.textContent = text
       e.title = text
       document.querySelector(parent).appendChild(e)
-      form.json(parent,id,e.tagName)
+      
+var name = e.tagName
+  json[name] = id
 
       
 }
@@ -909,13 +924,17 @@ element.div = function(id,parent,classname,text){
         }
         if(parent == 'body'){
           document.body.appendChild(e)
-       form.json(parent,id,e.tagName)
+       
+var name = e.tagName
+  json[name] = id
 
         }else{
           if(!document.querySelector(e.id)){
             
         document.querySelector(parent).appendChild(e)
-        form.json(parent,id,e.tagName)
+        
+var name = e.tagName
+  json[name] = id
           } else {console.log(e + 'Exist')}
 
         }
@@ -924,7 +943,9 @@ element.span = function(id,parent){
       var e = document.createElement('span')
       e.id = id;
       document.querySelector(parent).appendChild(e)
-      form.json(parent,id,e.tagName)
+      
+var name = e.tagName
+  json[name] = id
 
 }
 element.image = function(id,src,parent,classname){
@@ -939,7 +960,9 @@ element.image = function(id,src,parent,classname){
         e.className = classname;
         }
         document.querySelector(parent).appendChild(e)
-       form.json(parent,id,e.tagName)
+       
+var name = e.tagName
+  json[name] = id
 
 }
 element.ul = function(id,parent,classname){
@@ -953,7 +976,9 @@ element.ul = function(id,parent,classname){
          tag.parent = parent
         document.querySelector(parent).appendChild(e)
         
-       form.json(parent,id,e.tagName)
+       
+var name = e.tagName
+  json[name] = id
       } 
 },
 
@@ -1031,7 +1056,9 @@ tag.parent = tag.current[i]
   })
   form[id] = id
   document.querySelector(parent).appendChild(e)
-  form.json(parent,id,e.tagName)
+  
+var name = e.tagName
+  json[name] = id
 
 }
 
@@ -1591,7 +1618,8 @@ _address(document.querySelector("#address"), (data) => {
 
 
       //section.bar.animate(.2) to animate
-  progress: function(parent,percentage,color,width,next){
+  progress: function(parent,percentage,color,width,next,style){
+    var ProgressBar = import('../script/progress.js')
 const bar = {}
       if(!percentage){
         bar.number = '0';
@@ -1609,14 +1637,22 @@ const bar = {}
       } else {
         bar.size = width
       }
-  var url = '/script/line.js'
+
+        if(!style){
+          console.log('missing progress bar type defaulting to line')
+          style = 'line'
+        }
+        var url = '/script/' + style + '.js'
+      
+
+  
   $.getScript( url, function() {
     element.div('ele',parent)
 var x = document.getElementById('ele')
 x.style.height = '10px'
   }).done(function(){
 
-    section.bar = new ProgressBar.Line(ele, {
+    section.bar = new ProgressBar.Circle(ele, {
       strokeWidth: bar.size,
       easing: 'easeInOut',
       duration: 1400,
@@ -1651,6 +1687,8 @@ page[next]()
     
   
     },
+
+    
   screen: function(){
         var i = 0;
         document.addEventListener('click',function(e){
@@ -1707,10 +1745,6 @@ element.one = { test:function(stopper){
 
 
 
-
-
-
-
 element.p = document.createElement('p')
 page.body = document.getElementsByTagName('body')
 page.head = document.getElementsByTagName('head')
@@ -1736,12 +1770,6 @@ while (element.firstChild) {
 }
 }
  
-form.json = (parent,id,tag) => {
-  tag = tag.replace('#','')
-  form[parent.replace('#','')] = {
-    [tag]: id
-  }
-}
 //page.emptyForm = page.removeChildren('#'+_id)
 
 
