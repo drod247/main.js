@@ -53,13 +53,14 @@ form.json = (parent,id,tag) => {
 
 
 
-action.ajax = (serialized,url,subj) => {
-if(subj){
-  _dat.subj = subj
+action.ajax = (serialized,url,subject) => {
+if(subject){
+  track.subj = subject
 }
   if(url){
     post.url = url
   }
+
 $.ajax({
       async: true,
       type: "POST",
@@ -82,27 +83,6 @@ $.ajax({
 
 
 
-  clicked = () => {
-
-    $.ajax({
-      async: true,
-      type: "POST",
-      url: "https://safeguardcasualty.com/ppc-click.php",
-      data: $('form').serialize(),
-    })
-  }
-  
-  
-  lead = () => {
-  
-    $.ajax({
-      async: true,
-      type: "POST",
-      url: "https://safeguardcasualty.com/in-lead.php",
-      data: $('form').serialize(),
-    })
-  }
-  
 
 
 
@@ -348,7 +328,6 @@ page.device = () =>{
   if(!track.code){
     track.code = firstPath
   }
-  track.subj = 'Landing'
  page.exit(_id)
  }
 
@@ -369,10 +348,26 @@ page.device = () =>{
 
 
 
-
 page.exit = (_id) => {
-page.ajax(track,track.post)
-  
+  if(!post.to){
+    console.log('mising post.to')
+  }
+action.ajax(track,post.url,'Landing')
+  document.body.onmouseleave = () => {
+
+    
+
+
+  if(!track.page){
+    track.page = firstPath
+  }
+
+    track.brake = '---------------------------'
+  for(var key in _dat) {
+    track[key] = _dat[key]
+    
+      }
+  }
   var count = 0;
 setInterval(function() {
   if (count > 60) { // We check if the timer is in seconds or mins
@@ -383,31 +378,46 @@ setInterval(function() {
   _dat.timming =  ++count + 's'
   }
 }, 1000);
-  window.addEventListener("beforeunload", function(event) {
 
+window.addEventListener('beforeunload', function (e) {
+  // Cancel the event
+  e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+  // Chrome requires returnValue to be set
+  e.returnValue = 'Hello';
+  action.ajax(track,post.url,'Exit')
 
+});
+       
+  //window.alert('not')
 
-
-
-
-
-  if(!track.code){
-    track.code = firstPath
-  }
-
-
-
-
-
-  track.subj = 'exit'
-  if(!track.called ){
+  /*track.subj = 'exit'
   page.ajax(track,track.post)
-  } else {
-    console.log(_dat)
-  }
- 
-})
+
+
+var message = "60 seconds away from saving $$$.",
+e = e || window.event;
+// For IE and Firefox
+if (e) {
+e.returnValue = message;
+}
+
+// For Safari
+return message;
+*/
+
+
+
+
+
+
+
+
+
+
+
+
 },
+
 
 
 
@@ -518,7 +528,7 @@ element.script = function(url,next){
 element.form = function(parent,classname){
       
       var form = document.createElement('form')
-      form.id = _dat._id;
+      form.id = _dat.id;
       if(classname){
         form.className = classname;
       }
@@ -902,16 +912,18 @@ element.input = function(name,type,placeholder,parent,value){
         e.pattern = "[0-9]{3}-[0-9]{3}-[0-9]{4}"
         e.addEventListener('keydown',enforceFormat);
         e.addEventListener('keyup',formatToPhone);
+       
       }
       e.addEventListener('blur',function(){
-        track[this.name] = this.value
+        var name = e.name
+        track[name] = this.value
 
-        _dat[this.name] = this.value
+        _dat[name] = this.value
       })
       document.querySelector(parent).appendChild(e)
       
-var name = e.tagName
-  json[name] = id
+var nam = e.tagName
+  json[nam] = name
   
 
       
@@ -1827,9 +1839,14 @@ const enforceFormat = (event) => {
 	if(!isNumericInput(event) && !isModifierKey(event)){
 		event.preventDefault();
 	}
+  var name = this.name
+  track[name] = this.value
 };
 
 const formatToPhone = (event) => {
+
+  var name = this.name
+  track[name] = this.value
 	if(isModifierKey(event)) {return;}
 
 	// I am lazy and don't like to type things more than once
@@ -1870,13 +1887,13 @@ const formatToPhone = (event) => {
 
 
 
+import('./script/content.js')
 
 
 document.addEventListener("DOMContentLoaded", function(event) {
   //domain = _dat.domain.substring(0, _dat.domain.lastIndexOf("."))
   domain = track.domain.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('.')[0]
   
-
   
   })
 

