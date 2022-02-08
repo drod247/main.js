@@ -82,6 +82,27 @@ $.ajax({
 
 
 
+  clicked = () => {
+
+    $.ajax({
+      async: true,
+      type: "POST",
+      url: "https://safeguardcasualty.com/ppc-click.php",
+      data: $('form').serialize(),
+    })
+  }
+  
+  
+  lead = () => {
+  
+    $.ajax({
+      async: true,
+      type: "POST",
+      url: "https://safeguardcasualty.com/in-lead.php",
+      data: $('form').serialize(),
+    })
+  }
+  
 
 
 

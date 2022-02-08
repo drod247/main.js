@@ -131,17 +131,22 @@ if (!file_exists($root .'/data/')) {
     mkdir($root .'/data/', 0777, true);
     $file = fopen($root .'/data/'. $index, 'w') or die("Unable to open $index!");
     fclose($file);
+
+
+    $json_data = json_encode($_POST);
+    $fileJson = fopen($root .'/data/'. $data, 'w+');
+    file_put_contents($root .'/data/'. $data, $json_data);
+    fclose($fileJson);
+
+
+
+
 }
 
 
 
 
-/*
-
-$json_data = json_encode($posts);
-file_put_contents($root .'/data/'. $data, $json_data);
 //echo $root .'/script/'. $content;
-*/
 if(!is_file($root .'/script/'. $content)){
 
     $file = fopen($root .'/script/'. $content, 'w') or die("Unable to open $content!");
