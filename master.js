@@ -1,5 +1,5 @@
 
-console.log('Developed by | David Rodriguez @vsdg_group | https://vsdg.net');
+console.log('Developed by | David Rodriguez | @vsdg_group | https://vsdg.net' );
 
 const _dat = {};
 const vsdg = {};
@@ -19,7 +19,12 @@ const track = {}
 var cookie = {}
 const action = {};
 
+var ua = window.navigator.userAgent;
+var isIE = /MSIE|Trident/.test(ua);
 
+if ( isIE ) {
+  document.body.innerHTML = '<h1>Please Update your browser or switch to chrome</h1>'
+}
 
 
 track._id = 'id-'+new Date().getTime().toString()
@@ -61,6 +66,9 @@ if(subject){
     post.url = url
   }
 
+
+
+  
 $.ajax({
       async: true,
       type: "POST",
@@ -76,12 +84,57 @@ $.ajax({
 
 
 
+action.fetch = () => {
+  fetch('../functions/post-test.php', {
+    method: 'POST',
+    credentials: 'same-origin',
+    mode: 'same-origin',
+    headers: {
+      'Accept':       'application/json',
+      'Content-Type': 'application/json',
+
+    },
+    body: JSON.stringify({track}),
+});
+
+
+}
 
 
 
+action.fetch2 = () => {
+ fetch('../functions/post-test.php', {
+    method: 'POST',
+    credentials: 'same-origin',
+    mode: 'same-origin',
+    headers: {
+      'Accept':       'application/json',
+      'Content-Type': 'application/json',
+
+    },
+    body: JSON.stringify({track}),
+});
 
 
+}
 
+
+action.post = (url,dt) => {
+
+  const jsonString = JSON.stringify(Object.assign({}, dt)) 
+  const json_obj = JSON.parse(jsonString);
+  fetch(url, {
+    method: 'POST', // or 'PUT'
+    body: json_obj,
+  })
+  .then(d => {
+    console.log('Success:', d);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+
+}
 
 
 
@@ -211,6 +264,9 @@ page.track = (url,info) =>{
 if(url){
   post.url = url
 }
+if(post.to){
+
+}
 
 if(!info){
   console.log('Missing ' + info)
@@ -233,7 +289,11 @@ if(!info){
      track.Internet = data.organisation
  }).done(function(){
 page.device()
- }).fail(function(){
+ }).fail(function(d){
+
+
+
+   console.log(d)
    page.device()
  });
    }
@@ -351,7 +411,10 @@ page.device = () =>{
 page.exit = (_id) => {
   if(!post.to){
     console.log('mising post.to')
+  } else {
+    track.to = post.to
   }
+
 action.ajax(track,post.url,'Landing')
   document.body.onmouseleave = () => {
 
@@ -381,6 +444,7 @@ setInterval(function() {
 
 window.addEventListener('beforeunload', function (e) {
   // Cancel the event
+
   e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
   // Chrome requires returnValue to be set
   e.returnValue = 'Hello';
@@ -552,6 +616,21 @@ var name = e.tagName
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 page.loop = (tag, parent, next,max) => {
     if (json.text.length >= 6) {
       document.querySelector(parent).setAttribute('class', 'row-3')
@@ -622,6 +701,27 @@ page.loop = (tag, parent, next,max) => {
   }
    
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   element.li('load_more','Load more',parent,'display')
   page.display = () =>{
     document.querySelectorAll('form > ul > li').forEach(el =>{
@@ -653,82 +753,189 @@ page.loop = (tag, parent, next,max) => {
   
 
 
-page.lo = (tag, parent, next) => {
-if(!json.text){
-  console.log('Missing array data')
-}
 
 
 
-    if (json.text.length == 6) {
-      
-      document.querySelector(parent).setAttribute('class', 'row-3')
-    }
-    if (json.text.length <= 5) {
-      document.querySelector(parent).setAttribute('class', 'row-1')
-  
-    }
-    if (json.text.length > 6) {
-      document.querySelector(parent).setAttribute('class', 'row-4')
-  
-   
-    }
-    if(json.text.length > 50){
-      var part1 = []
-      var part2 = []
-  
-      for(var i = 0; i < 42; i++){
-        part1.push(json.text[i])
-      }
-  
-      for(var i = 43; i < json.length; i++){
-        part2.push(json.text[i])
-      }
-  
-  part1.forEach(e => {
-  
     
-    if(e[json.item].length > 13){
-      var short = e[json.item].substring(0,10) +'...'
-    } else {
-      var short = e[json.item]
+
+
+page.loop_tag = (json,max) => {
+  if (json.text.length >= 6) {
+    document.querySelector(parent).setAttribute('class', 'row-3')
   }
-  
-  element[tag](short,short,parent,next)
-  });
-  
-  element.select('other',parent,'',next)
-  element.option('other','#other','other')
-  part2.forEach(e => {
-    if(e[json.item].length > 13){
-      var short = e[json.item].substring(0,10) +'...'
-    } else {
-      var short = e[json.item]
+  if (json.text.length <= 5) {
+    document.querySelector(parent).setAttribute('class', 'row-1')
+
   }
-    element.option(short,'#other',short)
+  if (json.text.length >= 7 ) {
+    document.querySelector(parent).setAttribute('class', 'row-4')
+
+
+  }
+
+
+
+
+
+  if(json.text.length > max){
+
+    var part1 = []
+    var part2 = []
+  
+
+
+
+    for(var i = 0; i < max; i++){
+      part1.push(json.text[i])
+    }
+
+    for(var i = max; i < json.text.length; i++){
+      part2.push(json.text[i])
+    }
+
+
+if(json.item){
+
+  part1.forEach(e => {
+
+    var e = document.createElement(tag)
+    if(json.id){
+    e.id = json.id
+    }
+    if(json.classname){
+      e.className = json.clasname
+    }
+    if(json.value){
+      e.value = json.value
+    }
+    if(type){
+      e.type = json.type
+    }
+   
+      e.name = json.id
+    
+
+
+
+    if(json.tagname == 'input'){
+      e.addEventListener('keydown , blur',function(){
+        var name = this.name
+        track[name] = this.value
+
+      })
+    }
+
+    if(json.tagname == 'select'){
+      e.addEventListener('change',function(){
+        var name = this.name
+        track[name] = this.value
+
+      })
+    }
+
+    if(json.tagname == 'li'){
+      e.addEventListener('click',function(){
+        var name = this.name
+        track[name] = this.value
+
+      })
+    }
+
+
+
+    if(json.next){
+      e.addEventListener(listener,function(){
+        page[next](id)
+      })
+    }
+    
+
+
+    document.querySelector(parent).appendChild(e)
+
+    var name = e.tagName
+    json[name] = id
+    var name = e.tagName +1
+    tag[name]= _id + 1
+
+
+    element[tag](e[json.item],e[json.item],parent,next)
+    
+    })
+        
+    
+    part2.forEach(e => {
+    
+    
+    //element[tag](e[json.item],e[json.item],parent,next,'','load')
+    //document.querySelector('.load').setAttribute('style','display:none;')
+    
+    });
+  
+} else {
+
+  part1.forEach(e => {
+    element[tag](e,e,parent,next)
+    
+    })
+        
+    
+    part2.forEach(e => {
+    
+    
+    element[tag](e,e,parent,next,'','displaynone')
+    
+    });
+}
+ 
+
+
+
+
+element.li('load_more','Load more',parent,'display')
+page.display = () =>{
+  document.querySelectorAll('form > ul > li').forEach(el =>{
+    el.removeAttribute('class','load')})
+    
+  }
+
+
+  } else {
+
+if(json.item){
+
+
+  json.text.forEach(e => {
+    element[tag](e[item],e[item],parent,next)
+
+    });
+
+} else {
+json.text.forEach(e => {
+  element[tag](e,e,parent,next)
+
   });
-    } else {
-  
-      json.text.forEach(e => {
-        if(json.item){
-          if(e[json.item].length > 13){
-            var short = e[json.item].substring(0,10) +'...'
-          } else {
-            var short = e
-        }
-        element[tag](short,short,parent,next)
-        } else {
-        if(e.length > 13){
-          var short = e.substring(0,10) +'...'
-        } else {
-          var short = e
-      }
-        element[tag](short,short,parent,next)
-  
-        }
-      });
+}
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1098,18 +1305,20 @@ var name = e.tagName
 
 
 
-element.range = (min,max) => {
+element.range = (min,max,name) => {
+  json[name] = []
   for (var i = min; i < max; i++){
-    range.push(i)
+    json[name].push(i)
   }
  }
 
 
 
 
- element.range_desc = (min,max) => {
+ element.range_desc = (min,max,name) => {
+   json[name] = []
   for (var i = max; i > min; i--){
-    range.push(i)
+    json[name].push(i)
   }
  }
 
@@ -1887,7 +2096,7 @@ const formatToPhone = (event) => {
 
 
 
-import('./script/content.js')
+import('/script/content.js')
 
 
 document.addEventListener("DOMContentLoaded", function(event) {
