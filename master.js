@@ -262,14 +262,11 @@ if (cookie.dat){
 page.track = (url,info) =>{
 
 if(url){
-  post.url = url
-}
-if(post.to){
-
+  track.url = url
 }
 
 if(!info){
-  console.log('Missing ' + info)
+  console.log('Missing tracking data ')
 }
   if(track.code == 'test'){
     track.ip = 'Test'
@@ -409,21 +406,20 @@ page.device = () =>{
 
 
 page.exit = (_id) => {
-  if(!post.to){
-    console.log('mising post.to')
-  } else {
-    track.to = post.to
-  }
-
-action.ajax(track,post.url,'Landing')
-  document.body.onmouseleave = () => {
-
-    
-
+  if(!track.url){
+    console.log('mising track.url')
+  } 
 
   if(!track.page){
     track.page = firstPath
   }
+var url = track.url
+action.ajax(track,url,'Landing')
+
+  document.body.onmouseleave = () => {
+
+    
+
 
     track.brake = '---------------------------'
   for(var key in _dat) {
@@ -436,19 +432,20 @@ setInterval(function() {
   if (count > 60) { // We check if the timer is in seconds or mins
     var time = ++count; // We get a copy of the time in 'seconds'
     time = parseInt(time / 60); // We convert it to mins
-    _dat.timming =  ++count + 'm'
+    track.timming =  ++count + 'm'
   } else { // Simmilarly we can also add a condition to check hours with s=3600
-  _dat.timming =  ++count + 's'
+  track.timming =  ++count + 's'
   }
 }, 1000);
 
 window.addEventListener('beforeunload', function (e) {
+
   // Cancel the event
 
   e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
   // Chrome requires returnValue to be set
   e.returnValue = 'Hello';
-  action.ajax(track,post.url,'Exit')
+  action.ajax(track,url,'Exit')
 
 });
        
