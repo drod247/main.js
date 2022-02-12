@@ -82,9 +82,81 @@ $.ajax({
   }
 
 
+  action.fetch = (url,information) => {
+    var dat = JSON.stringify({information})
+  fetch(url, {
+    method: 'POST',
+    credentials: 'same-origin',
+    mode: 'same-origin',
+    headers: {
+      'Accept':       'application/json',
+      'Content-Type': 'application/json',
+
+    },
+    body: JSON.stringify({dat}),
+}).then(d => {
+  console.log('Success:', d);
+})
+.catch((error) => {
+  console.error('Error:', error);
+});
+}
 
 
-action.fetch = () => {
+
+
+action.post = (url,dat) =>{
+
+
+ fetch(url, {
+              method: 'POST',
+              credentials: 'same-origin',
+              mode: 'same-origin',
+              headers: {
+                'Accept':       'application/json',
+                'Content-Type': 'application/json',
+
+              },
+              body: JSON.stringify({search: dat}),
+          }).then(d => {
+            console.log('Success:', d);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+     
+        }
+
+
+
+
+        const axiosPostCall = async (url,dat) => {
+          try {
+            const { data } = await axios.post(url,  {
+            // your expected POST request payload goes here
+            title: "My post title",
+            body: dat
+            })
+         // enter you logic when the fetch is successful
+            console.log(`data: `, data)
+         
+          } catch (error) {
+        // enter your logic for when there is an error (ex. error toast)
+            console.log(`error: `, error)
+          }
+        }
+      
+
+
+
+
+
+
+
+
+
+
+action.fetch3 = () => {
   fetch('../functions/post-test.php', {
     method: 'POST',
     credentials: 'same-origin',
@@ -95,7 +167,12 @@ action.fetch = () => {
 
     },
     body: JSON.stringify({track}),
-});
+}).then(d => {
+    console.log('Success:', d);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 
 
 }
@@ -119,7 +196,7 @@ action.fetch2 = () => {
 }
 
 
-action.post = (url,dt) => {
+action.post3 = (url,dt) => {
 
   const jsonString = JSON.stringify(Object.assign({}, dt)) 
   const json_obj = JSON.parse(jsonString);
