@@ -1,0 +1,22 @@
+<?php
+
+$root = $_SERVER['DOCUMENT_ROOT']; 
+$json = json_encode($_POST);
+$json3 = json_decode($_POST);
+$json2 = file_get_contents('php://input');
+$json4 = json_decode($json2,true);
+$items = $json4['search'];
+
+$url = "https://leads.ricochet.me/api/v1/lead/create/IN-Fast-Home?token=5cab9cfff167022b00b3e0fe710dc145";
+
+$options = ['http' => [
+    'method' => 'POST',
+    'header' => 'Content-type:application/json',
+    'content' => $json2
+]];
+
+$context = stream_context_create($options);
+$response = file_get_contents($url, false, $context);
+
+
+?>
