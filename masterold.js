@@ -82,7 +82,7 @@ $.ajax({
   }
 
 
-  action.fetch = (url,information) => {
+  action.fetch5 = (url,information) => {
   fetch(url, {
     method: 'GET',
     credentials: 'same-origin',
