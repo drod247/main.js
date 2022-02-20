@@ -1118,9 +1118,13 @@ element.link = function(param){
 
 
 
-element.select = function(id,parent,next,param){
+element.select = function(id,parent,next,param,classname){
   var e = document.createElement('select')
+  
   e.id = id;
+  if(classname){
+    e.className = classname
+  }
     e.onchange = function(){
 
      var name = this.id
@@ -2445,6 +2449,18 @@ page.time = (current,next, interval,) => {
 
 
 
+
+
+
+action.split = (objName, data_to_split,count) => {
+  console.log(data_to_split)
+var name = objName
+var name1 = objName+1
+json[name] = []
+json[name1] = []
+json[name] = data_to_split.slice(0,count).reverse()
+json[name1] = data_to_split.slice(count).reverse()
+}
 
 
 

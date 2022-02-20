@@ -97,6 +97,7 @@ $.ajax({
   console.log('Success:', d);
 })
 .catch((error) => {
+  
   console.error('Error:', error);
 });
 }
@@ -129,88 +130,6 @@ action.post = (url,dat) =>{
 
 
 
-        const axiosPostCall = async (url,dat) => {
-          try {
-            const { data } = await axios.post(url,  {
-            // your expected POST request payload goes here
-            title: "My post title",
-            body: dat
-            })
-         // enter you logic when the fetch is successful
-            console.log(`data: `, data)
-         
-          } catch (error) {
-        // enter your logic for when there is an error (ex. error toast)
-            console.log(`error: `, error)
-          }
-        }
-      
-
-
-
-
-
-
-
-
-
-
-action.fetch3 = () => {
-  fetch('../functions/post-test.php', {
-    method: 'POST',
-    credentials: 'same-origin',
-    mode: 'same-origin',
-    headers: {
-      'Accept':       'application/json',
-      'Content-Type': 'application/json',
-
-    },
-    body: JSON.stringify({track}),
-}).then(d => {
-    console.log('Success:', d);
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  });
-
-
-}
-
-
-
-action.fetch2 = () => {
- fetch('../functions/post-test.php', {
-    method: 'POST',
-    credentials: 'same-origin',
-    mode: 'same-origin',
-    headers: {
-      'Accept':       'application/json',
-      'Content-Type': 'application/json',
-
-    },
-    body: JSON.stringify({track}),
-});
-
-
-}
-
-
-action.post3 = (url,dt) => {
-
-  const jsonString = JSON.stringify(Object.assign({}, dt)) 
-  const json_obj = JSON.parse(jsonString);
-  fetch(url, {
-    method: 'POST', // or 'PUT'
-    body: json_obj,
-  })
-  .then(d => {
-    console.log('Success:', d);
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  });
-
-}
 
 
 
