@@ -2144,11 +2144,11 @@ var obj = parent.split('#').join('')
 json[obj] = []
 
  element.div(id,parent)
- element.div('container-carriers','#'+tag.id)
 
   fetch(folder)
   .then(res => res.text()) 
   .then(text => {
+
     var doc = document.createElement("html");
     doc.innerHTML = text;
     var links = doc.getElementsByTagName("a")
@@ -2159,6 +2159,7 @@ json[obj] = []
       }
     }
 
+    element.div('container','#'+tag.id,'dsd')
 
 
   }).then(function(){
@@ -2168,27 +2169,30 @@ json[obj] = []
   for (var i = 0; i < json[obj].length; i++) {
     console.log(folder+ '/'+ json[obj][i])
 
-    element.div('','#container-carriers','mySlides')
-    element.image('',folder +  '/'+json[obj][i],'.mySlides',"'style','display:none'")
+   // element.div('#container','mySlide')
+    var img = folder +  '/'+json[obj][i]
+    element.image('',img,'#container','mySlide')
    
   }
   }).then(function(){
-
     var slideIndex = 0;
+    function showSlides() {
+      var i;
+      json.slides = document.querySelectorAll(".mySlide");
+      for (i = 0; i < json.slides.length; i++) {
+        json.slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > json.slides.length) {
+        slideIndex = 1;
+      }
 
-    var i;
-    var slides = document.querySelector('.mySlides')
-    for (i = 0; i < json[obj].length; i++) {
-     slides[i].style.display = "none";
+      json.slides[slideIndex - 1].style.display = "block";
+      setTimeout(showSlides, duration); // Change image every 2 seconds
     }
-    slideIndex++;
-    if (slideIndex > image.length) {
-      slideIndex = 1;
-    }
-  
-    slides[slideIndex - 1].style.display = "block";
-    setTimeout(showSlides, duration); // Change image every 2 seconds
+    showSlides()
   })
+
 
 
 
