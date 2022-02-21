@@ -2396,14 +2396,14 @@ page.image = (folder,next) => {
 
 
       //section.bar.animate(.2) to animate
-      page.progress = (parent,color,size,time,next) => {
+      page.progress = (parent,color,size,next) => {
         element.div('container',parent)
       import('/vsdg/script/libraries/progress.js');    
   
       page.bar = new ProgressBar.Line('#container', {
         strokeWidth: size,
         easing: 'easeInOut',
-        duration: time,
+       // duration: duration,
         color: color,
         trailColor: '#eee',
         trailWidth: size,
@@ -2430,13 +2430,14 @@ page.image = (folder,next) => {
       if(next){
       page.time(next,time)
       }
-  //section.bar.animate(0)
+  //section.bar.animate(.1)
 
 
 
 
 }
     
+
 
 
 
