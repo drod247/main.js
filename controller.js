@@ -19,6 +19,8 @@ const track = {}
 var cookie = {}
 const action = {};
 const path = {};
+var date = new Date(); // date object
+_dat.currentYear = date.getFullYear()
 var ua = window.navigator.userAgent;
 var isIE = /MSIE|Trident/.test(ua);
 
