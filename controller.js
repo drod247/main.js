@@ -2471,6 +2471,40 @@ json[name1] = data_to_split.slice(count).reverse()
 
 
 
+page.bar = (parent,color,backgroundColor,speed) =>{
+  element.div('progress',parent)
+  element.div('bar','#progress')
+  var e = document.querySelector('#bar')
+  var s = document.querySelector('#progress')
+  e.style.width = '1%',
+  e.style.height = '30px',
+  e.style.backgroundColor = color
+  s.style.width = '100%',
+  s.style.backgroundColor = backgroundColor
+
+
+  var i = 0;
+  function move() {
+    if (i == 0) {
+      i = 1;
+      var elem = document.getElementById("bar");
+      var width = 1;
+      var id = setInterval(frame, speed);
+      function frame() {
+        if (width >= 100) {
+          clearInterval(id);
+          i = 0;
+        } else {
+          width++;
+          elem.style.width = width + "%";
+        }
+      }
+    }
+  }
+  move()
+}
+
+
 
 
 
