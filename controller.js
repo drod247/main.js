@@ -2442,15 +2442,72 @@ page.image = (folder,next) => {
 
 
 
-
-page.time = (current,next, interval,) => {
+page.time = (current,next, time_miliseconds,) => {
   page[current]()
     setTimeout(function() {
 
         page[next]();
-    }, interval )
+    }, time_miliseconds )
     
 }
+
+
+
+
+page.address_fields = (parent) =>{
+console.log(parent)
+element.div('street_add',parent)
+
+element.div('street','#street_add')
+element.label('Address','#street')
+element.input('street-address','text','Street address','#street')
+
+element.div('sta','#street_add')
+
+element.label('State','#sta')
+element.input('state','text','State','#sta','FL')
+
+element.div('zip','#street_add')
+element.label('Zip code','#zip')
+if(_dat.zip){
+var elem = document.querySelector("#state");
+// it's a good idea to check whether the element exists
+if (elem != null && elem != undefined) {
+  elem.disabled = "disabled";
+}
+element.input('postal-code','text','Zip code','#zip',_dat.zip)
+} else {
+
+element.input('postal-code','text','Zip code','#zip')
+}
+}
+
+
+
+page.contact = (parent) =>{
+  element.div('contact',parent)
+
+  element.div('first','#contact')
+  element.label('First name','#first')
+element.input('fname','text','First name', '#first')
+
+element.div('last','#contact')
+element.label('Last name','#last')
+element.input('lname','text','Last name', '#last')
+
+element.div('phone','#contact')
+element.label('Phone number','#phone')
+element.input('phone','tel','Phone number', '#phone')
+
+element.div('email','#contact')
+element.label('Email address','#email')
+element.input('email','email','Email address', '#email')
+
+
+
+}
+
+
 
 
 
@@ -2471,7 +2528,16 @@ json[name1] = data_to_split.slice(count).reverse()
 
 
 
-page.bar = (parent,color,backgroundColor,speed) =>{
+
+
+
+
+
+
+
+
+
+page.bar = (parent,color,backgroundColor,speed,next,time_miliseconds) =>{
   element.div('progress',parent)
   element.div('bar','#progress')
   var e = document.querySelector('#bar')
@@ -2484,7 +2550,8 @@ page.bar = (parent,color,backgroundColor,speed) =>{
 
 
   var i = 0;
-  function move() {
+  page.move = () => {
+
     if (i == 0) {
       i = 1;
       var elem = document.getElementById("bar");
@@ -2501,9 +2568,88 @@ page.bar = (parent,color,backgroundColor,speed) =>{
       }
     }
   }
-  move()
+  if(next){
+  page.time('move',next,time_miliseconds)
+  }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+page.slide = (id,parent,duration,folder,next) => {
+  tag.id = id
+  tag.parent = parent
+  
+var obj = parent.split('#').join('')
+json[obj] = []
+
+ element.div(id,parent)
+
+  fetch(folder)
+  .then(res => res.text()) 
+  .then(text => {
+
+    var doc = document.createElement("html");
+    doc.innerHTML = text;
+    var links = doc.getElementsByTagName("a")
+    
+    for (var i=0; i<links.length; i++) {
+      if( links[i].getAttribute("href").match(/\.(jpe?g|png|gif)$/) ){
+        json[obj].push(links[i].getAttribute("href"));
+      }
+    }
+
+    element.div('container','#'+tag.id,'dsd')
+
+
+  }).then(function(){
+   
+
+
+  for (var i = 0; i < json[obj].length; i++) {
+    console.log(folder+ '/'+ json[obj][i])
+
+   // element.div('#container','mySlide')
+    var img = folder +  '/'+json[obj][i]
+    element.image('',img,'#container','mySlide')
+   
+  }
+  }).then(function(){
+    var slideIndex = 0;
+    function showSlides() {
+      var i;
+      json.slides = document.querySelectorAll(".mySlide");
+      for (i = 0; i < json.slides.length; i++) {
+        json.slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > json.slides.length) {
+        slideIndex = 1;
+      }
+
+      json.slides[slideIndex - 1].style.display = "block";
+      setTimeout(showSlides, duration); // Change image every 2 seconds
+    }
+    showSlides()
+  }).then(function(){
+    if(next){
+    page[next]()
+    }
+  })
+
+
+
+  }
 
 
 
