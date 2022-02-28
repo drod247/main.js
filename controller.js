@@ -2537,7 +2537,7 @@ json[name1] = data_to_split.slice(count).reverse()
 
 
 
-page.bar = (parent,color,backgroundColor,speed,next,time_miliseconds) =>{
+page.bar = (parent,color,backgroundcolor,speed,next,time_miliseconds) =>{
   element.div('progress',parent)
   element.div('bar','#progress')
   var e = document.querySelector('#bar')
@@ -2545,8 +2545,9 @@ page.bar = (parent,color,backgroundColor,speed,next,time_miliseconds) =>{
   e.style.width = '1%',
   e.style.height = '30px',
   e.style.backgroundColor = color
+  e.style.transition = 'ease-in-out 1s'
   s.style.width = '100%',
-  s.style.backgroundColor = backgroundColor
+  s.style.backgroundColor = backgroundcolor
 
 
   var i = 0;
@@ -2649,8 +2650,111 @@ json[obj] = []
 
 
 
+
+
+
   }
 
+
+
+
+
+
+
+page.css = ()=>{
+
+var spin = {
+  position: 'fixed',
+  top: '0',
+  left: '0',
+  right: '0',
+  bottom: '0',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center'
+}
+
+
+
+var spin_after = {
+  content: '""',
+width: '80px',
+height: '80px',
+border: '2px solid #f3f3f3',
+borderTop: '3px solid #2f9ee9',
+borderRadius: '100%',
+willChange: 'transform',
+animation: 'spin 1s infinite linear'
+}
+
+
+  var style = {
+    width: '1px',
+    height: '1px',
+    backgroundColor: 'red',
+    transform: 'rotateZ(45deg)',
+}
+var styleToString = (style) => {
+    return Object.keys(style).reduce((acc, key) => (
+        acc + key.split(/(?=[A-Z])/).join('-').toLowerCase() + ':' + style[key] + ';'
+    ), '');
+};
+
+
+}
+
+
+
+
+
+
+page.spin = ()=>{
+
+  var spinner = {
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    right: '0',
+    bottom: '0',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+  
+  
+  
+  var spinner_after = {
+    content: '""',
+  width: '80px',
+  height: '80px',
+  border: '2px solid #f3f3f3',
+  borderTop: '3px solid #2f9ee9',
+  borderRadius: '100%',
+  willChange: 'transform',
+  animation: 'spin 1s infinite linear'
+  }
+  
+  
+
+
+
+
+  
+    var style = {
+      width: '1px',
+      height: '1px',
+      backgroundColor: 'red',
+      transform: 'rotateZ(45deg)',
+  }
+  var styleToString = (style) => {
+      return Object.keys(style).reduce((acc, key) => (
+          acc + key.split(/(?=[A-Z])/).join('-').toLowerCase() + ':' + style[key] + ';'
+      ), '');
+  };
+  
+  
+  }
+  
 
 
 
