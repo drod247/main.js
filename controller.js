@@ -1291,9 +1291,6 @@ element.image = function(id,src,parent,classname){
         if(classname){
         e.className = classname;
         }
-        if(attribute){
-          e.setAttribute(attribute)
-        }
         document.querySelector(parent).appendChild(e)
        
 var name = e.tagName
@@ -2398,11 +2395,14 @@ page.image = (folder,next) => {
 
 
       //section.bar.animate(.2) to animate
-      page.progress = (parent,color,size,next) => {
-        element.div('container',parent)
-      import('/vsdg/script/libraries/progress.js');    
+      page.progress = (parent,color,size,next,container) => {
+        if(!container){
+          container = 'container'
+        }
+        element.div(container,parent)
+      import('/scr/progressbar.js');    
   
-      page.bar = new ProgressBar.Line('#container', {
+      page.bar = new ProgressBar.Line('#'+container, {
         strokeWidth: size,
         easing: 'easeInOut',
        // duration: duration,
@@ -2439,6 +2439,7 @@ page.image = (folder,next) => {
 
 }
     
+
 
 
 
@@ -2538,10 +2539,10 @@ json[name1] = data_to_split.slice(count).reverse()
 
 
 page.bar = (parent,color,backgroundcolor,speed,next,time_miliseconds) =>{
-  element.div('progress',parent)
-  element.div('bar','#progress')
-  var e = document.querySelector('#bar')
-  var s = document.querySelector('#progress')
+  element.div(backgroundcolor,parent)
+  element.div(color,'#'+backgroundcolor)
+  var e = document.querySelector('#'+color)
+  var s = document.querySelector('#'+backgroundcolor)
   e.style.width = '1%',
   e.style.height = '30px',
   e.style.backgroundColor = color
@@ -2555,7 +2556,7 @@ page.bar = (parent,color,backgroundcolor,speed,next,time_miliseconds) =>{
 
     if (i == 0) {
       i = 1;
-      var elem = document.getElementById("bar");
+      var elem = document.getElementById(color);
       var width = 1;
       var id = setInterval(frame, speed);
       function frame() {
@@ -2573,7 +2574,6 @@ page.bar = (parent,color,backgroundcolor,speed,next,time_miliseconds) =>{
   page.time('move',next,time_miliseconds)
   }
 }
-
 
 
 
@@ -2756,6 +2756,42 @@ page.spin = ()=>{
   }
   
 
+
+
+  page.styleToString = (style) => {
+    return Object.keys(style).reduce((acc, key) => (
+        acc + key.split(/(?=[A-Z])/).join('-').toLowerCase() + ':' + style[key] + ';'
+    ), '');
+  };
+  
+  
+  page.style = (id,css) => {
+  page.styleToString = (style) => {
+      return Object.keys(style).reduce((acc, key) => (
+          acc + key.split(/(?=[A-Z])/).join('-').toLowerCase() + ':' + style[key] + ';'
+      ), '');
+  };
+  document.querySelector(id).setattribute('style',page.styleToString(css))
+  }
+  
+  
+
+
+  page.check = (tagname,next) => {
+
+    var e = document.querySelectorAll(tagname)
+    for(var i = 0; i < e.length; i++){
+      if(e[i].value == ''){
+        alert('Please type '+ e[i].placeholder.toLowerCase())
+        e[i].focus()
+        break;
+      } else {
+        page[next]()
+        break
+      }
+    }
+    
+    }
 
 
 
