@@ -2485,30 +2485,37 @@ element.input('postal-code','text','Zip code','#zip')
 
 
 
-page.contact = (parent) =>{
-  element.div('contact',parent)
 
-  element.div('first','#contact')
-  element.label('First name','#first')
-element.input('fname','text','First name', '#first')
+page.contact = (parent,id,classname) =>{
+ 
+  if(!id){
+    id = 'contact'
+  }
+  if(!classname){
+    classname = id
+  }
+  element.div(id,parent)
 
-element.div('last','#contact')
-element.label('Last name','#last')
-element.input('lname','text','Last name', '#last')
+  element.div('_first','#'+id)
+  element.label('First name','#_first')
+element.input('first','text','First name', '#_first','',classname)
 
-element.div('phone','#contact')
-element.label('Phone number','#phone')
-element.input('phone','tel','Phone number', '#phone')
+element.div('_last','#'+id)
+element.label('Last name','#_last')
+element.input('last','text','Last name', '#_last','',classname)
 
-element.div('email','#contact')
-element.label('Email address','#email')
-element.input('email','email','Email address', '#email')
+element.div('_phone','#'+id)
+element.label('Phone number','#_phone')
+element.input('phone','tel','Phone number', '#_phone','',classname)
 
+element.div('_email','#'+id)
+element.label('Email address','#_email')
+element.input('email','email','Email address', '#_email','',classname)
+//page.style(input)
 
+//document.querySelector(parent > id > +'div >input').setAttribute('stile',page.s)
 
 }
-
-
 
 
 
@@ -2537,12 +2544,14 @@ json[name1] = data_to_split.slice(count).reverse()
 
 
 
-
 page.bar = (parent,color,backgroundcolor,speed,next,time_miliseconds) =>{
-  element.div(backgroundcolor,parent)
-  element.div(color,'#'+backgroundcolor)
-  var e = document.querySelector('#'+color)
-  var s = document.querySelector('#'+backgroundcolor)
+  background = backgroundcolor.split('#').join('')
+  forground = color.split('#').join('')
+
+  element.div(background,parent)
+  element.div('bar'+forground,'#'+background)
+  var e = document.querySelector('#bar'+forground)
+  var s = document.querySelector('#'+background)
   e.style.width = '1%',
   e.style.height = '30px',
   e.style.backgroundColor = color
@@ -2556,7 +2565,7 @@ page.bar = (parent,color,backgroundcolor,speed,next,time_miliseconds) =>{
 
     if (i == 0) {
       i = 1;
-      var elem = document.getElementById(color);
+      var elem = document.querySelector('#bar'+forground);
       var width = 1;
       var id = setInterval(frame, speed);
       function frame() {
@@ -2574,6 +2583,7 @@ page.bar = (parent,color,backgroundcolor,speed,next,time_miliseconds) =>{
   page.time('move',next,time_miliseconds)
   }
 }
+
 
 
 
@@ -2771,7 +2781,7 @@ page.spin = ()=>{
           acc + key.split(/(?=[A-Z])/).join('-').toLowerCase() + ':' + style[key] + ';'
       ), '');
   };
-  document.querySelector(id).setattribute('style',page.styleToString(css))
+  document.querySelector(id).setAttribute('style',page.styleToString(css))
   }
   
   
