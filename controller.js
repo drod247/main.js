@@ -2193,21 +2193,6 @@ json[obj] = []
   })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   }
 
 
@@ -2297,23 +2282,6 @@ fetch(url)
 
 
 
-function fetch_current_data() {
-  // The fetch() API returns a Promise.  This function
-  // exposes a similar API, except the fulfillment
-  // value of this function's Promise has had more
-  // work done on it.
-  return fetch('current-data.json').then(response => {
-    if (response.headers.get('content-type') != 'application/json') {
-      throw new TypeError();
-    }
-    var j = response.json();
-    // maybe do something with j
-    return j; // fulfillment value given to user of
-              // fetch_current_data().then()
-  });
-}
-
-
 
 
 
@@ -2395,14 +2363,31 @@ page.image = (folder,next) => {
 
 
       //section.bar.animate(.2) to animate
-      page.progress = (parent,color,size,next,container) => {
+      page.progress = (parent,color,size,container,percentage,textcolor,type) => {
         if(!container){
           container = 'container'
         }
+style[container] ={
+  width: '156px',
+margin: 'auto',
+background: 'white',
+borderRadius: '50%',
+height: '156px',
+top: '-75px',
+position: 'relative'
+}
+
         element.div(container,parent)
-      import('/scr/progressbar.js');    
-  
-      page.bar = new ProgressBar.Line('#'+container, {
+
+        if(type || type == 'Line'){
+         var jsfile = 'progressbar.js'
+        } else {
+          var jsfile = 'progressbar.js'
+          
+        }
+      import('/scr/'+jsfile).then(function(){    
+      
+      page.progressbar = new ProgressBar[type]('#'+container, {
         strokeWidth: size,
         easing: 'easeInOut',
        // duration: duration,
@@ -2414,7 +2399,7 @@ page.image = (folder,next) => {
           style: {
             // Text color.
             // Default: same as stroke color (options.color)
-            color: '#999',
+            color: textcolor,
             padding: 0,
             margin: 0,
             transform: null
@@ -2429,12 +2414,14 @@ page.image = (folder,next) => {
 
       })
 
-      if(next){
-      page.time(next,time)
-      }
-  //section.bar.animate(.1)
 
+}).then(function(){
+page.progressbar.animate('.'+percentage)
+if(style != 'Line'){
+page.style('#'+container,style[container])
+}
 
+})
 
 
 }
